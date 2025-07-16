@@ -1,147 +1,6 @@
 import { body, param } from "express-validator";
 import { resetPassword } from "../controllers/auth.controller";
 
-const productValidator = {
-  create: [
-    body("name")
-      .exists()
-      .withMessage("name was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("name cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("name must be a string"),
-    body("author")
-      .exists()
-      .withMessage("author was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("author cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("author must be a string"),
-    body("category")
-      .optional()
-      .exists()
-      .withMessage("category was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("category cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("category must be a string"),
-    body("description")
-      .exists()
-      .withMessage("description was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("description cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("description must be a string"),
-    body("releaseDate")
-      .exists()
-      .withMessage("releaseDate was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("releaseDate cannot be empty")
-      .bail()
-      .isDate({ format: "YYYY-MM-DD" })
-      .withMessage("Invalid release date format (YYYY-MM-DD)"),
-    body("pages")
-      .notEmpty()
-      .withMessage("pages cannot be empty")
-      .bail()
-      .isInt({ min: 1 })
-      .withMessage("Pages must be a positive integer and bigger than 0"),
-    body("price")
-      .exists()
-      .withMessage("price was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("price cannot be empty")
-      .bail()
-      .isFloat({ min: 1, max: 1000 })
-      .withMessage("Price must be a positive number"),
-    body("stock")
-      .exists()
-      .withMessage("stock was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("stock cannot be empty")
-      .bail()
-      .isInt({ min: 1 })
-      .withMessage("Stock must be a non-negative integer"),
-  ],
-  update: [
-    body("name")
-      .optional()
-      .notEmpty()
-      .withMessage("Name is required")
-      .bail()
-      .isString()
-      .withMessage("name must be a string"),
-    body("author")
-      .optional()
-      .notEmpty()
-      .withMessage("author is required")
-      .bail()
-      .isString()
-      .withMessage("author must be a string"),
-    body("category")
-      .optional()
-      .notEmpty()
-      .withMessage("category cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("category must be a string"),
-    body("description")
-      .optional()
-      .notEmpty()
-      .withMessage("description cannot be empty")
-      .bail()
-      .isString()
-      .withMessage("description must be a string"),
-    body("releaseDate")
-      .optional()
-      .notEmpty()
-      .withMessage("releaseDate cannot be empty")
-      .bail()
-      .isDate({ format: "YYYY-MM-DD" })
-      .withMessage("Invalid release date format (YYYY-MM-DD)"),
-    body("pages")
-      .optional()
-      .notEmpty()
-      .withMessage("pages cannot be empty")
-      .bail()
-      .isInt({ min: 1 })
-      .withMessage("Pages must be a positive integer and bigger than 0"),
-    body("price")
-      .optional()
-      .notEmpty()
-      .withMessage("price cannot be empty")
-      .bail()
-      .isFloat({ min: 1, max: 1000 })
-      .withMessage("Price must be a positive number"),
-    body("stock")
-      .optional()
-      .notEmpty()
-      .withMessage("stock cannot be empty")
-      .bail()
-      .isInt({ min: 1 })
-      .withMessage("Stock must be a non-negative integer"),
-  ],
-  delete: [
-    param("id")
-      .exists()
-      .withMessage("Product ID must be provided")
-      .bail()
-      .matches(/^[a-f\d]{24}$/i)
-      .withMessage("ID is not in valid mongoDB format"),
-  ],
-};
-
 const userValidator = {
   create: [
     body("name")
@@ -304,18 +163,18 @@ const authValidator = {
       .withMessage("Password was not provided")
       .bail()
       .isString()
-      .withMessage("Password must be a string")
-      .bail()
-      .isStrongPassword({
-        minLength: 8,
-        minNumbers: 1,
-        minLowercase: 1,
-        minUppercase: 1,
-        minSymbols: 1,
-      })
-      .withMessage(
-        "Password must contain 8 characters, a small letter, a capital letter, a symbol and a number"
-      ),
+      .withMessage("Password must be a string"),
+    // .bail()
+    // .isStrongPassword({
+    //   minLength: 8,
+    //   minNumbers: 1,
+    //   minLowercase: 1,
+    //   minUppercase: 1,
+    //   minSymbols: 1,
+    // })
+    // .withMessage(
+    //   "Password must contain 8 characters, a small letter, a capital letter, a symbol and a number"
+    // ),
     body("passwordConfirm")
       .exists()
       .withMessage("Confirm Password was not provided")
@@ -329,6 +188,8 @@ const authValidator = {
         }
         return true;
       }),
+    body("name").optional().isString().withMessage("Name must be a string"),
+
     body("role")
       .optional()
       .isIn(["user", "admin"])
@@ -577,7 +438,6 @@ const discountValidator = {
 };
 
 export {
-  productValidator,
   userValidator,
   authValidator,
   reviewValidator,
