@@ -225,13 +225,19 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "cewofe8718@nomrista.com",
+									"value": "arifbiswasjoy@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "cewofe8718@nomrista.com",
+									"value": "123455",
 									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "cewofe8718@nomrista.com",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -1992,10 +1998,37 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
-			"key": "baseURLKennedy",
-			"value": "http://localhost:3002"
+			"key": "baseURL",
+			"value": "http://10.10.10.70:5051/api"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "default"
 		},
 		{
 			"key": "authToken",
