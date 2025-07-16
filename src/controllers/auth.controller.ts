@@ -96,29 +96,25 @@ const verifyEmail = async (req: Request, res: Response) => {
 
 const signup = async (req: Request, res: Response) => {
   try {
-    // const validation = validationResult(req).array();
-    // console.log(validation);
-    // if (validation.length > 0) {
-    //   return res
-    //     .status(HTTP_STATUS.OK)
-    //     .send(failure("Failed to add the user", validation[0].msg));
-    // }
+    const validation = validationResult(req).array();
+    console.log(validation);
+    if (validation.length) {
+      return res
+        .status(HTTP_STATUS.OK)
+        .send(failure("Failed to add the user", validation[0].msg));
+    }
 
-    // if (req.body.role === "admin") {
-    //   return res
-    //     .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-    //     .send(failure(`Admin cannot be signed up`));
-    // }
+    const { name, email, password } = req.body;
+
+    if (req.body.role === "admin") {
+      return res
+        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
+        .send(failure(`Admin cannot be signed up`));
+    }
 
     console.log("req.body", req.body);
 
-    if (!req.body.email || !req.body.password) {
-      return res
-        .status(HTTP_STATUS.BAD_REQUEST)
-        .send(failure("please provide mail and password"));
-    }
-
-    const emailCheck = await User.findOne({ email: req.body.email });
+    const emailCheck = await User.findOne({ email });
 
     if (emailCheck && !emailCheck.emailVerified) {
       const emailVerifyCode = generateRandomCode(4);
@@ -152,15 +148,16 @@ const signup = async (req: Request, res: Response) => {
     if (emailCheck) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure(`User with email: ${req.body.email} already exists`));
+        .send(failure(`User with email: ${email} already exists`));
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const emailVerifyCode = generateRandomCode(4);
 
     const newUser = await User.create({
-      email: req.body.email,
+      name: name && name,
+      email: email,
       roles: req.body.roles || "user",
       password: hashedPassword,
       emailVerifyCode,
@@ -181,14 +178,6 @@ const signup = async (req: Request, res: Response) => {
     const expiresIn = process.env.JWT_EXPIRES_IN
       ? parseInt(process.env.JWT_EXPIRES_IN, 10)
       : 3600; // default to 1 hour if not set
-
-    // const token = jwt.sign(
-    //   newUser.toObject(),
-    //   process.env.JWT_SECRET ?? "default_secret",
-    //   {
-    //     expiresIn,
-    //   }
-    // );
 
     // payload, secret, JWT expiration
     const token = jwt.sign(
