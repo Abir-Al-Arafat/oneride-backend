@@ -1,8 +1,7 @@
 import passport from "passport";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import express from "express";
 import "../config/passport"; // import passport setup
-import { Request, Response, NextFunction, RequestHandler } from "express";
 
 import {
   signup,
@@ -76,13 +75,7 @@ routes.get(
 );
 
 // for signing up
-routes.post(
-  "/signup",
-  // userValidator.create,
-  // authValidator.create,
-  upload.none(),
-  signup
-);
+routes.post("/signup", authValidator.create, upload.none(), signup);
 
 routes.post(
   "/become-a-driver",
