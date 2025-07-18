@@ -130,7 +130,7 @@ routes.post(
 );
 
 // for logging in
-routes.post("/login", upload.none(), login);
+routes.post("/login", upload.none(), authValidator.login, login);
 
 routes.post("/reset-password", authValidator.resetPassword, resetPassword);
 

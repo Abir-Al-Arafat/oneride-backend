@@ -68,7 +68,7 @@ const verifyEmail = async (req: Request, res: Response) => {
     if (!email || !emailVerifyCode) {
       return res
         .status(HTTP_STATUS.BAD_REQUEST)
-        .send(failure("Please provide phone number and code"));
+        .send(failure("Please provide email and code"));
     }
 
     const isVerified = await User.findOne({
@@ -215,13 +215,14 @@ const signup = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
+    const validation = validationResult(req).array();
+    console.log(validation);
+    if (validation.length) {
       return res
-        .status(HTTP_STATUS.BAD_REQUEST)
-        .send(failure("Please provide email and password"));
+        .status(HTTP_STATUS.OK)
+        .send(failure("Failed to login", validation[0].msg));
     }
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email }).select("+password");
 
@@ -261,15 +262,6 @@ const login = async (req: Request, res: Response) => {
       ? parseInt(process.env.JWT_EXPIRES_IN, 10)
       : 3600; // default to 1 hour if not set
 
-    // const token = jwt.sign(
-    //   user.toObject(),
-    //   process.env.JWT_SECRET ?? "default_secret",
-    //   {
-    //     expiresIn,
-    //   }
-    // );
-
-    // payload, secret, JWT expiration
     const token = jwt.sign(
       {
         _id: user._id,
