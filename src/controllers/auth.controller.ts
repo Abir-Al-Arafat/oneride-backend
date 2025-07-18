@@ -1,15 +1,20 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import bcrypt from "bcryptjs";
+
 import jwt from "jsonwebtoken";
 import twilio from "twilio";
 import { success, failure, generateRandomCode } from "../utilities/common";
+import {
+  registerUser,
+  authenticateUser,
+  generateOTP,
+  resetUserPassword,
+  updatePassword,
+  verifyEmailService,
+  checkEmailVerification,
+} from "../services/auth.service";
 import User from "../models/user.model";
 import Phone from "../models/phone.model";
-import Notification from "../models/notification.model";
-import passportIdentityModel from "../models/passportIdentity.model";
-import Licence from "../models/licence.model";
-import Vehicle from "../models/vehicle.model";
 
 import HTTP_STATUS from "../constants/statusCodes";
 import { emailWithNodemailerGmail } from "../config/email.config";
@@ -71,14 +76,9 @@ const verifyEmail = async (req: Request, res: Response) => {
         .send(failure("Please provide email and code"));
     }
 
-    const isVerified = await User.findOne({
-      email,
-      emailVerifyCode,
-    });
+    const isVerified = await verifyEmailService(email, emailVerifyCode);
 
     if (isVerified) {
-      isVerified.emailVerified = true;
-      await isVerified.save();
       return res
         .status(HTTP_STATUS.OK)
         .send(success("Email verified successfully"));
@@ -90,59 +90,33 @@ const verifyEmail = async (req: Request, res: Response) => {
     console.log(err);
     return res
       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-      .send(`INTERNAL SERVER ERROR`);
+      .send(failure("INTERNAL SERVER ERROR"));
   }
 };
 
 const signup = async (req: Request, res: Response) => {
   try {
     const validation = validationResult(req).array();
-    console.log(validation);
     if (validation.length) {
       return res
         .status(HTTP_STATUS.OK)
         .send(failure("Failed to add the user", validation[0].msg));
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, roles } = req.body;
 
-    if (req.body.role === "admin") {
+    if (roles === "admin") {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure(`Admin cannot be signed up`));
     }
 
-    console.log("req.body", req.body);
-
     const emailCheck = await User.findOne({ email });
 
     if (emailCheck && !emailCheck.emailVerified) {
-      const emailVerifyCode = generateRandomCode(4);
-      emailCheck.emailVerifyCode = emailVerifyCode;
-      await emailCheck.save();
-
-      const emailData = {
-        email: emailCheck.email,
-        subject: "Account Activation Email",
-        html: `
-                        <div style="max-width: 500px; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); text-align: center; font-family: Arial, sans-serif;">
-        <h6 style="font-size: 16px; color: #333;">Hello, ${
-          emailCheck?.name || emailCheck?.email || "User"
-        }</h6>
-        <p style="font-size: 14px; color: #555;">Your email verification code is:</p>
-        <div style="font-size: 24px; font-weight: bold; color: #d32f2f; background: #f8d7da; display: inline-block; padding: 10px 20px; border-radius: 5px; margin-top: 10px;">
-          ${emailVerifyCode}
-        </div>
-        <p style="font-size: 14px; color: #555;">Please use this code to verify your email.</p>
-      </div>
-                        
-                      `,
-      };
-      emailWithNodemailerGmail(emailData);
-
       return res
-        .status(HTTP_STATUS.OK)
-        .send(success("Please verify your email"));
+        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
+        .send(failure(`User with email: ${email} already exists`));
     }
 
     if (emailCheck) {
@@ -151,35 +125,12 @@ const signup = async (req: Request, res: Response) => {
         .send(failure(`User with email: ${email} already exists`));
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const emailVerifyCode = generateRandomCode(4);
-
-    const newUser = await User.create({
-      name: name && name,
-      email: email,
-      roles: req.body.roles || "user",
-      password: hashedPassword,
-      emailVerifyCode,
-    });
-
-    const emailData = {
-      email: req.body.email,
-      subject: "Account Activation Email",
-      html: `
-                    <h6>Hello, ${newUser?.name || newUser?.email || "User"}</h6>
-                    <p>Your email verification code is <h6>${emailVerifyCode}</h6> to verify your email</p>
-                    
-                  `,
-    };
-
-    emailWithNodemailerGmail(emailData);
+    const newUser = await registerUser(name, email, password);
 
     const expiresIn = process.env.JWT_EXPIRES_IN
       ? parseInt(process.env.JWT_EXPIRES_IN, 10)
       : 3600; // default to 1 hour if not set
 
-    // payload, secret, JWT expiration
     const token = jwt.sign(
       {
         _id: newUser._id,
@@ -222,15 +173,9 @@ const login = async (req: Request, res: Response) => {
         .status(HTTP_STATUS.OK)
         .send(failure("Failed to login", validation[0].msg));
     }
+
     const { email, password } = req.body;
-
-    const user = await User.findOne({ email }).select("+password");
-
-    if (user?.googleId) {
-      return res
-        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("Please login with google account"));
-    }
+    const user = await authenticateUser(email, password);
 
     if (!user) {
       return res
@@ -238,24 +183,16 @@ const login = async (req: Request, res: Response) => {
         .send(failure("Invalid email or password"));
     }
 
-    if (!user.password) {
+    if (user.googleId) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("password not set"));
+        .send(failure("Please login with google account"));
     }
 
     if (!user.emailVerified) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure("Please verify your email"));
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password!);
-
-    if (!isMatch) {
-      return res
-        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("Invalid email or password"));
     }
 
     const expiresIn = process.env.JWT_EXPIRES_IN
@@ -303,27 +240,19 @@ const sendOTP = async (req: Request, res: Response) => {
         .send(failure("Please provide email"));
     }
 
-    const user = await User.findOne({ email });
+    const otp = await generateOTP(email);
 
-    if (!user) {
+    if (!otp) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure("User not found"));
     }
 
-    const otp = generateRandomCode(4);
-
-    user.emailVerifyCode = otp;
-
-    user.emailVerified = false;
-
-    await user.save();
-
     const emailData = {
-      email: user.email,
+      email,
       subject: "OTP Verification",
       html: `
-                    <h6>Hello, ${user.name || user.email || "User"}</h6>
+                    <h6>Hello, ${email}</h6>
                     <p>Your OTP is <h6>${otp}</h6> to verify your account</p>
                     
                   `,
@@ -354,25 +283,21 @@ const resetPassword = async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const emailVerified = await checkEmailVerification(email);
 
-    if (!user) {
+    if (!emailVerified) {
+      return res
+        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
+        .send(failure("Please verify your email"));
+    }
+
+    const isUpdated = await resetUserPassword(email, password);
+
+    if (!isUpdated) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure("User not found"));
     }
-
-    if (!user.emailVerified) {
-      return res
-        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("Please verify your email first"));
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    user.password = hashedPassword;
-
-    await user.save();
 
     return res
       .status(HTTP_STATUS.OK)
@@ -387,14 +312,11 @@ const resetPassword = async (req: Request, res: Response) => {
 
 const changePassword = async (req: UserRequest, res: Response) => {
   try {
-    // const validation = validationResult(req).array();
-    // console.log(validation);
-    // if (validation.length > 0) {
-    //   return res
-    //     .status(HTTP_STATUS.OK)
-    //     .send(failure("Password reset failed", validation[0].msg));
-    // }
-
+    if (!req.user || !req.user._id) {
+      return res
+        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
+        .send(failure("please login"));
+    }
     const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
     if (!oldPassword || !newPassword || !confirmNewPassword) {
@@ -407,33 +329,23 @@ const changePassword = async (req: UserRequest, res: Response) => {
         );
     }
 
-    const user = await User.findById(req.user?._id).select("+password");
-
-    if (!user) {
-      return res
-        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("User not found, please login "));
-    }
-
-    const isMatch = await bcrypt.compare(oldPassword, user.password!);
-
-    if (!isMatch) {
-      return res
-        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
-        .send(failure("Old password is incorrect"));
-    }
-
     if (newPassword !== confirmNewPassword) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure("New password and confirm password do not match"));
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const isUpdated = await updatePassword(
+      req.user!._id.toString(),
+      oldPassword,
+      newPassword
+    );
 
-    user.password = hashedPassword;
-
-    await user.save();
+    if (!isUpdated) {
+      return res
+        .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
+        .send(failure("Old password is incorrect"));
+    }
 
     return res
       .status(HTTP_STATUS.OK)

@@ -1,11 +1,6 @@
 import express from "express";
 
-import {
-  signup,
-  becomeADriver,
-  approveDriver,
-  rejectDriver,
-} from "../controllers/auth.controller";
+import { signup } from "../controllers/auth.controller";
 import {
   searchDrivers,
   requestRide,
@@ -48,34 +43,6 @@ routes.post(
 
 routes.get("/search-drivers", upload.none(), isAuthorizedUser, searchDrivers);
 routes.post("/request-ride", upload.none(), isAuthorizedUser, requestRide);
-
-routes.post(
-  "/become-a-driver",
-  // userValidator.create,
-  // authValidator.create,
-  isAuthorizedUser,
-  fileUpload(),
-  driverValidator.becomeADriver,
-  becomeADriver
-);
-
-routes.post(
-  "/approve-driver",
-  // userValidator.create,
-  // authValidator.create,
-  // isAuthorizedAdmin,
-  upload.none(),
-  approveDriver
-);
-
-routes.post(
-  "/reject-driver",
-  // userValidator.create,
-  // authValidator.create,
-  // isAuthorizedAdmin,
-  upload.none(),
-  rejectDriver
-);
 
 routes.post("/estimate-ride", upload.none(), estimateRide);
 
