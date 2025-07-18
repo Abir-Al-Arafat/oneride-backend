@@ -5,9 +5,6 @@ import "../config/passport"; // import passport setup
 
 import {
   signup,
-  becomeADriver,
-  approveDriver,
-  rejectDriver,
   login,
   sendVerificationCodeToPhone,
   sendOTP,
@@ -76,34 +73,6 @@ routes.get(
 
 // for signing up
 routes.post("/signup", authValidator.create, upload.none(), signup);
-
-routes.post(
-  "/become-a-driver",
-  // userValidator.create,
-  // authValidator.create,
-  isAuthorizedUser,
-  fileUpload(),
-  driverValidator.becomeADriver,
-  becomeADriver
-);
-
-routes.post(
-  "/approve-driver",
-  // userValidator.create,
-  // authValidator.create,
-  // isAuthorizedAdmin,
-  upload.none(),
-  approveDriver
-);
-
-routes.post(
-  "/reject-driver",
-  // userValidator.create,
-  // authValidator.create,
-  // isAuthorizedAdmin,
-  upload.none(),
-  rejectDriver
-);
 
 routes.post(
   "/send-verification-code-to-phone",
