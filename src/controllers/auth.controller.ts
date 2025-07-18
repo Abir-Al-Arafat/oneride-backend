@@ -346,7 +346,7 @@ const resetPassword = async (req: Request, res: Response) => {
   try {
     const validation = validationResult(req).array();
     console.log(validation);
-    if (validation.length > 0) {
+    if (validation.length) {
       return res
         .status(HTTP_STATUS.OK)
         .send(failure("Password reset failed", validation[0].msg));

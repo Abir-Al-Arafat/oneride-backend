@@ -227,18 +227,18 @@ const authValidator = {
       .withMessage("Password was not provided")
       .bail()
       .isString()
-      .withMessage("Password must be a string")
-      .bail()
-      .isStrongPassword({
-        minLength: 6,
-        minNumbers: 1,
-        minLowercase: 1,
-        minUppercase: 1,
-        minSymbols: 1,
-      })
-      .withMessage(
-        "Password must contain 8 characters, a small letter, a capital letter, a symbol and a number"
-      ),
+      .withMessage("Password must be a string"),
+    // .bail()
+    // .isStrongPassword({
+    //   minLength: 6,
+    //   minNumbers: 1,
+    //   minLowercase: 1,
+    //   minUppercase: 1,
+    //   minSymbols: 1,
+    // })
+    // .withMessage(
+    //   "Password must contain 8 characters, a small letter, a capital letter, a symbol and a number"
+    // ),
     body("confirmPassword")
       .exists()
       .withMessage("Confirm Password was not provided")
