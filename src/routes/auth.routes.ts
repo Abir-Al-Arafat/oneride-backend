@@ -142,42 +142,10 @@ routes.post(
 );
 
 // routes.post(
-//   "/auth/create-admin",
-//   // userValidator.create,
-//   // authValidator.create,
-//   isAuthorizedSuperAdmin,
-//   createAdmin
-// );
-
-// routes.post(
-//   "/auth/connect-stripe-account",
-//   isAuthorizedUser,
-//   connectStripeAccount
-// );
-
-// routes.post(
 //   "/auth/forgot-password",
 //   // userValidator.create,
 //   // authValidator.create,
 //   forgotPassword
-// );
-
-// // for approving doctor
-// routes.post(
-//   "/auth/approve-affiliate",
-//   // userValidator.create,
-//   // authValidator.create,
-//   isAuthorizedAdmin,
-//   approveAffiliate
-// );
-
-// // for canceling doctor
-// routes.post(
-//   "/auth/cancel-affiliate",
-//   // userValidator.create,
-//   // authValidator.create,
-//   isAuthorizedAdmin,
-//   cancelAffiliate
 // );
 
 // // for logging in
