@@ -14,11 +14,7 @@ import {
 } from "../controllers/auth.controller";
 import multer from "multer";
 
-import {
-  userValidator,
-  authValidator,
-  driverValidator,
-} from "../middlewares/validation";
+import { authValidator } from "../middlewares/validation";
 import {
   isAuthorizedUser,
   isAuthorizedAdmin,
