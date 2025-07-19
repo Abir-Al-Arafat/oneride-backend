@@ -11,6 +11,7 @@ import { registerChatHandlers } from "./services/chat.service.socket";
 import databaseConnection from "./config/database";
 import userRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
+import categoryRouter from "./routes/category.routes";
 import serviceRouter from "./routes/service.routes";
 import driverRouter from "./routes/driver.routes";
 import rideRouter from "./routes/ride.routes";
@@ -52,6 +53,7 @@ const baseApiUrl = "/api";
 
 app.use(`${baseApiUrl}/users`, userRouter);
 app.use(`${baseApiUrl}/auth`, authRouter);
+app.use(`${baseApiUrl}/categories`, categoryRouter);
 app.use(`${baseApiUrl}/services`, serviceRouter);
 app.use(`${baseApiUrl}/drivers`, driverRouter);
 app.use(`${baseApiUrl}/rides`, rideRouter);
