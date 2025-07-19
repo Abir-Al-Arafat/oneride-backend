@@ -189,7 +189,9 @@ const login = async (req: Request, res: Response) => {
         .send(failure("Please login with google account"));
     }
 
-    if (!user.emailVerified) {
+    const emailVerified = await checkEmailVerification(email);
+
+    if (!emailVerified) {
       return res
         .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
         .send(failure("Please verify your email"));
