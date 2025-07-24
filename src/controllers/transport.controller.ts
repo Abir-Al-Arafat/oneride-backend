@@ -57,7 +57,12 @@ const deleteTransport = async (req: Request, res: Response) => {
 
 const getAllTransports = async (req: Request, res: Response) => {
   try {
-    const transports = await Transport.find();
+    const { type } = req.query;
+    let query: any = {};
+    if (type) {
+      query.type = type;
+    }
+    const transports = await Transport.find(query);
     res
       .status(HTTP_STATUS.OK)
       .send(success("Transports retrieved", transports));
