@@ -62,7 +62,7 @@ const getAllTransports = async (req: Request, res: Response) => {
     if (type) {
       query.type = type;
     }
-    const transports = await Transport.find(query);
+    const transports = await Transport.find(query).sort({ createdAt: -1 });
     res
       .status(HTTP_STATUS.OK)
       .send(success("Transports retrieved", transports));
