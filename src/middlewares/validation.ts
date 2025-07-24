@@ -358,12 +358,12 @@ const transportValidator = {
       .bail()
       .isIn(["busRoute", "parkAndRide", "pubPickup"])
       .withMessage("type must be busRoute, parkAndRide or pubPickup"),
-    body("placeName")
+    body("pickUpPoint")
       .exists()
-      .withMessage("placeName was not provided")
+      .withMessage("pickUpPoint was not provided")
       .bail()
       .isString()
-      .withMessage("placeName must be a string"),
+      .withMessage("pickUpPoint must be a string"),
     body("duration")
       .exists()
       .withMessage("duration was not provided")

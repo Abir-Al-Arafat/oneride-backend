@@ -7,7 +7,7 @@ const transportSchema = new mongoose.Schema(
       enum: ["busRoute", "parkAndRide", "pubPickup"],
       required: true,
     },
-    placeName: {
+    pickUpPoint: {
       type: String,
       required: true,
     },
