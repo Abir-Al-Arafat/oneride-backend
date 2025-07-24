@@ -379,10 +379,71 @@ const transportValidator = {
   ],
 };
 
+const eventValidator = {
+  create: [
+    body("title")
+      .exists()
+      .withMessage("title was not provided")
+      .bail()
+      .isString()
+      .withMessage("title must be a string"),
+
+    body("startDate")
+      .exists()
+      .withMessage("startDate was not provided")
+      .bail()
+      .isString()
+      .withMessage("startDate must be a string"),
+
+    body("endDate")
+      .exists()
+      .withMessage("endDate was not provided")
+      .bail()
+      .isString()
+      .withMessage("endDate must be a string"),
+
+    body("startTime")
+      .exists()
+      .withMessage("startTime was not provided")
+      .bail()
+      .isString()
+      .withMessage("startTime must be a string"),
+
+    body("endTime")
+      .exists()
+      .withMessage("endTime was not provided")
+      .bail()
+      .isString()
+      .withMessage("endTime must be a string"),
+
+    body("venueName")
+      .exists()
+      .withMessage("venueName was not provided")
+      .bail()
+      .isString()
+      .withMessage("venueName must be a string"),
+
+    body("totalSeat")
+      .exists()
+      .withMessage("totalSeat was not provided")
+      .bail()
+      .isNumeric()
+      .withMessage("totalSeat must be a number"),
+
+    body("ticketPrice")
+      .exists()
+      .withMessage("ticketPrice was not provided")
+      .bail()
+      .isNumeric()
+      .withMessage("ticketPrice must be a number"),
+  ],
+};
+
 export {
   userValidator,
   authValidator,
   reviewValidator,
   driverValidator,
   transportValidator,
+  eventValidator,
 };
