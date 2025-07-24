@@ -13,6 +13,7 @@ import userRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
 import transportRouter from "./routes/transport.routes";
+import eventRouter from "./routes/event.routes";
 import serviceRouter from "./routes/service.routes";
 import driverRouter from "./routes/driver.routes";
 import rideRouter from "./routes/ride.routes";
@@ -48,7 +49,7 @@ app.use(
   }
 );
 
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "..", "public")));
 
 const baseApiUrl = "/api";
 
@@ -56,6 +57,7 @@ app.use(`${baseApiUrl}/users`, userRouter);
 app.use(`${baseApiUrl}/auth`, authRouter);
 app.use(`${baseApiUrl}/categories`, categoryRouter);
 app.use(`${baseApiUrl}/transports`, transportRouter);
+app.use(`${baseApiUrl}/events`, eventRouter);
 app.use(`${baseApiUrl}/services`, serviceRouter);
 app.use(`${baseApiUrl}/drivers`, driverRouter);
 app.use(`${baseApiUrl}/rides`, rideRouter);
