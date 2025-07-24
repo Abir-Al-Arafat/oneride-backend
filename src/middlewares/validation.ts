@@ -347,93 +347,35 @@ const reviewValidator = {
   ],
 };
 
-const discountValidator = {
-  addDiscount: [
-    body("productId")
+const transportValidator = {
+  create: [
+    body("type")
       .exists()
-      .withMessage("product ID must be provided")
-      .bail()
-      .matches(/^[a-f\d]{24}$/i)
-      .withMessage("ID is not in valid mongoDB format"),
-    body("startTime")
-      .exists()
-      .withMessage("startTime was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("startTime cannot be empty")
-      .isISO8601()
-      .withMessage(
-        'Invalid date-time format for start time. Use "YYYY-MM-DDT14:10:26.113Z" format.'
-      ),
-    body("endTime")
-      .exists()
-      .withMessage("endTime was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("endTime cannot be empty")
-      .isISO8601()
-      .withMessage(
-        'Invalid date-time format for end time. Use "YYYY-MM-DDT14:10:26.113Z" format.'
-      ),
-    body("percentage")
-      .isFloat({ min: 1, max: 70 })
-      .withMessage("discount percentage must be a number between 1 and 70"),
-    body("title")
-      .exists()
-      .withMessage("title was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("title cannot be empty")
+      .withMessage("type was not provided")
       .bail()
       .isString()
-      .withMessage("title must be a string"),
-  ],
-
-  updateDiscount: [
-    body("productId")
-      .optional()
-      .exists()
-      .withMessage("product ID must be provided")
+      .withMessage("type must be a string")
       .bail()
-      .matches(/^[a-f\d]{24}$/i)
-      .withMessage("ID is not in valid mongoDB format"),
-    body("startTime")
-      .optional()
+      .isIn(["busRoute", "parkAndRide", "pubPickup"])
+      .withMessage("type must be busRoute, parkAndRide or pubPickup"),
+    body("placeName")
       .exists()
-      .withMessage("startTime was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("startTime cannot be empty"),
-    body("endTime")
-      .optional()
-      .exists()
-      .withMessage("endTime was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("endTime cannot be empty"),
-    body("percentage")
-      .optional()
-      .isFloat({ min: 1, max: 70 })
-      .withMessage("discount percentage must be a number between 1 and 70"),
-    body("title")
-      .optional()
-      .exists()
-      .withMessage("title was not provided")
-      .bail()
-      .notEmpty()
-      .withMessage("title cannot be empty")
+      .withMessage("placeName was not provided")
       .bail()
       .isString()
-      .withMessage("title must be a string"),
-  ],
-
-  id: [
-    param("id")
+      .withMessage("placeName must be a string"),
+    body("duration")
       .exists()
-      .withMessage("Discount ID must be provided")
+      .withMessage("duration was not provided")
       .bail()
-      .matches(/^[a-f\d]{24}$/i)
-      .withMessage("ID is not in valid mongoDB format"),
+      .isNumeric()
+      .withMessage("duration must be a number"),
+    body("departureTime")
+      .exists()
+      .withMessage("departureTime was not provided")
+      .bail()
+      .isString()
+      .withMessage("departureTime must be a string"),
   ],
 };
 
@@ -441,6 +383,6 @@ export {
   userValidator,
   authValidator,
   reviewValidator,
-  discountValidator,
   driverValidator,
+  transportValidator,
 };
