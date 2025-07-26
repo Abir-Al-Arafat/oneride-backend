@@ -169,7 +169,52 @@ const createEvent = async (req: Request, res: Response) => {
 
 const getAllEvents = async (req: Request, res: Response) => {
   try {
-    const events = await Event.find().populate("category");
+    const { category, title, adminStatus, filterByQuarter } = req.query;
+    let query: any = {};
+    if (category) {
+      query.category = category;
+    }
+    if (title) {
+      const titleStr = String(title);
+      query.title = { $regex: new RegExp(titleStr, "i") };
+    }
+    if (adminStatus) {
+      query.adminStatus = adminStatus;
+    }
+    if (filterByQuarter) {
+      const date = new Date();
+      switch (filterByQuarter) {
+        case "thisWeek":
+          query.startDate = {
+            $gte: new Date(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate() - date.getDay()
+            ),
+            $lte: new Date(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate() + (7 - date.getDay())
+            ),
+          };
+          break;
+        case "thisMonth":
+          query.startDate = {
+            $gte: new Date(date.getFullYear(), date.getMonth(), 1),
+            $lte: new Date(date.getFullYear(), date.getMonth() + 1, 0),
+          };
+          break;
+        case "thisYear":
+          query.startDate = {
+            $gte: new Date(date.getFullYear(), 0, 1),
+            $lte: new Date(date.getFullYear(), 11, 31),
+          };
+          break;
+        default:
+          break;
+      }
+    }
+    const events = await Event.find(query).populate("category");
     res
       .status(HTTP_STATUS.OK)
       .send(success("Events fetched successfully", events));
