@@ -35,7 +35,9 @@ const createEventService = async (body: any, files?: TUploadFields) => {
     parsedParkAndRides = JSON.parse(parkAndRides);
     parsedPubPickups = JSON.parse(pubPickups);
   } catch (err: any) {
-    throw new Error("Invalid JSON in transport arrays");
+    throw new Error(
+      "Invalid JSON in transport arrays. eg: busRoutes, parkAndRides, pubPickups"
+    );
   }
 
   if (!Array.isArray(parsedBusRoutes))
