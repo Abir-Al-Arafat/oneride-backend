@@ -525,6 +525,41 @@ const mongoDBIdValidator = [
     .withMessage("id must be a valid MongoDB ObjectId"),
 ];
 
+const invitationValidator = {
+  create: [
+    body("fullName")
+      .exists()
+      .withMessage("fullName was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("fullName cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("fullName must be a string"),
+    body("email")
+      .exists()
+      .withMessage("email was not provided")
+      .bail()
+      .isEmail()
+      .withMessage("email must be a valid email"),
+    body("role")
+      .exists()
+      .withMessage("role was not provided")
+      .bail()
+      .isString()
+      .withMessage("role must be a string")
+      .bail()
+      .isIn(["admin", "eventOrganizer", "viewer"])
+      .withMessage(
+        "role must be one of the following: admin, eventOrganizer, viewer"
+      ),
+    body("optionalMessage")
+      .optional()
+      .isString()
+      .withMessage("optionalMessage must be a string"),
+  ],
+};
+
 export {
   userValidator,
   authValidator,
@@ -533,5 +568,6 @@ export {
   transportValidator,
   eventValidator,
   charterValidator,
+  invitationValidator,
   mongoDBIdValidator,
 };
