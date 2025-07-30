@@ -1,5 +1,6 @@
 import { body, param } from "express-validator";
 import { resetPassword } from "../controllers/auth.controller";
+import { updateCharterStatus } from "../controllers/charter.controller";
 
 const userValidator = {
   create: [
@@ -439,6 +440,91 @@ const eventValidator = {
   ],
 };
 
+const charterValidator = {
+  create: [
+    body("name")
+      .exists()
+      .withMessage("name was not provided")
+      .bail()
+      .isString()
+      .withMessage("name must be a string"),
+    body("email")
+      .exists()
+      .withMessage("email was not provided")
+      .bail()
+      .isEmail()
+      .withMessage("email must be a valid email"),
+    body("phone")
+      .exists()
+      .withMessage("phone was not provided")
+      .bail()
+      .isString()
+      .withMessage("phone must be a string"),
+    body("passengerCount")
+      .exists()
+      .withMessage("passengerCount was not provided")
+      .bail()
+      .isNumeric()
+      .withMessage("passengerCount must be a number"),
+    body("pickupLocation")
+      .exists()
+      .withMessage("pickupLocation was not provided")
+      .bail()
+      .isString()
+      .withMessage("pickupLocation must be a string"),
+    body("dropoffLocation")
+      .exists()
+      .withMessage("dropoffLocation was not provided")
+      .bail()
+      .isString()
+      .withMessage("dropoffLocation must be a string"),
+    body("pickupDateAndTime")
+      .exists()
+      .withMessage("pickupDateAndTime was not provided")
+      .bail()
+      .isString()
+      .withMessage("pickupDateAndTime must be a string"),
+    body("purpose")
+      .exists()
+      .withMessage("purpose was not provided")
+      .bail()
+      .isString()
+      .withMessage("purpose must be a string"),
+    body("specialInstructions")
+      .optional()
+      .isString()
+      .withMessage("specialInstructions must be a string"),
+  ],
+  updateCharterStatus: [
+    param("id")
+      .exists()
+      .withMessage("Charter ID was not provided")
+      .bail()
+      .isMongoId()
+      .withMessage("Charter ID must be a valid MongoDB ObjectId"),
+    body("status")
+      .exists()
+      .withMessage("status was not provided")
+      .bail()
+      .isString()
+      .withMessage("status must be a string")
+      .bail()
+      .isIn(["pending", "approved", "rejected"])
+      .withMessage(
+        "status must be one of the following: pending, approved, rejected"
+      ),
+  ],
+};
+
+const mongoDBIdValidator = [
+  param("id")
+    .exists()
+    .withMessage("id was not provided")
+    .bail()
+    .isMongoId()
+    .withMessage("id must be a valid MongoDB ObjectId"),
+];
+
 export {
   userValidator,
   authValidator,
@@ -446,4 +532,6 @@ export {
   driverValidator,
   transportValidator,
   eventValidator,
+  charterValidator,
+  mongoDBIdValidator,
 };
