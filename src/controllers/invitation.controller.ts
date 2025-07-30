@@ -4,6 +4,10 @@ import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
 import invitationModel from "../models/invitation.model";
 import { emailWithNodemailerGmail } from "../config/email.config";
+import {
+  addInvitationService,
+  getAllInvitationsService,
+} from "../services/invitation.service";
 
 const addInvitation = async (req: Request, res: Response) => {
   try {
@@ -14,7 +18,7 @@ const addInvitation = async (req: Request, res: Response) => {
         .send(failure("Failed to create invitation", validation[0].msg));
     }
 
-    const invitation = await invitationModel.create(req.body);
+    const invitation = await addInvitationService(req.body);
 
     if (!invitation) {
       return res
@@ -26,7 +30,11 @@ const addInvitation = async (req: Request, res: Response) => {
       const emailData = {
         email: invitation.email,
         subject: "Invitation to Join Oneride",
-        html: `<h6>Hello there </h6><p> you have been invited to join oneride.</p>`,
+        html: `<h6>Hello there </h6><p> you have been invited to join oneride.</p> ${
+          invitation.optionalMessage
+            ? `<p>${invitation.optionalMessage}</p>`
+            : ""
+        }`,
       };
 
       emailWithNodemailerGmail(emailData);
@@ -44,7 +52,7 @@ const addInvitation = async (req: Request, res: Response) => {
 
 const getAllInvitations = async (req: Request, res: Response) => {
   try {
-    const invitations = await invitationModel.find();
+    const invitations = await getAllInvitationsService();
     if (!invitations.length) {
       return res
         .status(HTTP_STATUS.NOT_FOUND)
