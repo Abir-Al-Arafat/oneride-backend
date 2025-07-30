@@ -5,6 +5,7 @@ import Category from "../models/category.model";
 import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
 import { TUploadFields } from "../types/upload-fields";
+import { filterByDateRange } from "../utilities/filters";
 
 const createEventService = async (body: any, files?: TUploadFields) => {
   const {
@@ -123,37 +124,8 @@ const getAllEventsService = async (query: any) => {
   if (title) dbQuery.title = { $regex: new RegExp(String(title), "i") };
   if (adminStatus) dbQuery.adminStatus = adminStatus;
   if (filterByQuarter) {
-    const date = new Date();
-    switch (filterByQuarter) {
-      case "thisWeek":
-        dbQuery.startDate = {
-          $gte: new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate() - date.getDay()
-          ),
-          $lte: new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate() + (7 - date.getDay())
-          ),
-        };
-        break;
-      case "thisMonth":
-        dbQuery.startDate = {
-          $gte: new Date(date.getFullYear(), date.getMonth(), 1),
-          $lte: new Date(date.getFullYear(), date.getMonth() + 1, 0),
-        };
-        break;
-      case "thisYear":
-        dbQuery.startDate = {
-          $gte: new Date(date.getFullYear(), 0, 1),
-          $lte: new Date(date.getFullYear(), 11, 31),
-        };
-        break;
-      default:
-        break;
-    }
+    const dateRange = filterByDateRange(filterByQuarter);
+    if (dateRange) dbQuery.startDate = dateRange;
   }
   const events = await Event.find(dbQuery).populate("category");
   return events;
