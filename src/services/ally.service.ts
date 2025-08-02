@@ -1,6 +1,6 @@
 import allyModel from "../models/ally.model";
 import { IQuery } from "../types/query-params";
-
+import QueryHelper from "../utilities/QueryHelper";
 const addAllyService = async (data: any) => {
   const ally = await allyModel.create(data);
   return ally;
@@ -17,15 +17,22 @@ const deleteAllyService = async (id: string) => {
 };
 
 const getAllAllyService = async (query?: IQuery) => {
-  const dbQuery: any = {};
-  if (query && query.status) {
-    dbQuery.status = query.status;
+  const { status, type, page = 1, limit = 10 } = query || {};
+  const filter: IQuery = {};
+  if (status) {
+    filter.status = status;
   }
-  if (query && query.type) {
-    dbQuery.type = query.type;
+  if (type) {
+    filter.type = type;
   }
-  const allies = await allyModel.find(dbQuery);
-  return allies;
+
+  const queryHelper = new QueryHelper<typeof allyModel>();
+
+  return await queryHelper.query(allyModel, {
+    filter,
+    page: Number(page),
+    limit: Number(limit),
+  });
 };
 
 export {

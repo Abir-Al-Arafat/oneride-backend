@@ -82,7 +82,7 @@ const getAllAlly = async (req: Request, res: Response) => {
     }
 
     const allies = await getAllAllyService(req.query);
-    if (!allies.length) {
+    if (!allies.result || !allies.result.length) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("ally not found"));
     }
     res.status(HTTP_STATUS.OK).send(success("ally fetched", allies));
