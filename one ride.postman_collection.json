@@ -355,6 +355,166 @@
 			]
 		},
 		{
+			"name": "blog",
+			"item": [
+				{
+					"name": "add blog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "title",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "author",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "published",
+									"description": "[draft, published]",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "content",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit blog",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title updated",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "author updated",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "published",
+									"description": "[draft, published]",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "content updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs/688d9192789d4de953d31e9e",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs",
+								"688d9192789d4de953d31e9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete blog",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs/688d9192789d4de953d31e9e",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs",
+								"688d9192789d4de953d31e9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all blogs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "music",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "transport",
 			"item": [
 				{
@@ -638,6 +798,297 @@
 								},
 								{
 									"key": "filterByQuarter",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "charter",
+			"item": [
+				{
+					"name": "create charter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rosas18892@devdigs.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "019999999",
+									"type": "text"
+								},
+								{
+									"key": "passengerCount",
+									"value": "22",
+									"type": "text"
+								},
+								{
+									"key": "pickupLocation",
+									"value": "diyabari",
+									"type": "text"
+								},
+								{
+									"key": "dropoffLocation",
+									"value": "clifornia",
+									"type": "text"
+								},
+								{
+									"key": "pickupDateAndTime",
+									"value": "2025-07-24T14:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "purpose",
+									"value": "birthday party",
+									"type": "text"
+								},
+								{
+									"key": "specialInstructions",
+									"value": "specialInstructions",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update charter status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "rejected",
+									"description": "[\"pending\", \"approved\", \"rejected\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/status/6889bdfccf99ce16b4eb9d36",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"status",
+								"6889bdfccf99ce16b4eb9d36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mail client about charter status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/status/mail-user/6889de1bd426bbd896dfb926",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"status",
+								"mail-user",
+								"6889de1bd426bbd896dfb926"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete charter",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/6889de1ad426bbd896dfb924",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"6889de1ad426bbd896dfb924"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all charters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters?page=2&limit=1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters"
+							],
+							"query": [
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invitation",
+			"item": [
+				{
+					"name": "create invitation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "fullName",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rosas18892@devdigs.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "viewer",
+									"type": "text"
+								},
+								{
+									"key": "optionalMessage",
+									"value": "optionalMessage",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/invitations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all invitations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/invitations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"invitations"
+							],
+							"query": [
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
 									"value": null,
 									"disabled": true
 								}
