@@ -6,4 +6,6 @@ export interface IQuery {
   role?: string;
   isAffiliate?: boolean;
   isActive?: boolean;
+  status?: string;
+  type?: string;
 }
