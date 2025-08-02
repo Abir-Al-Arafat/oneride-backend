@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
-import blogModel from "../models/blog.model";
+
 import {
   addBlogService,
   updateBlogService,
