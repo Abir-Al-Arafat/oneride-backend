@@ -613,6 +613,63 @@ const blogValidator = {
   ],
 };
 
+const allyValidator = {
+  query: [
+    body("status")
+      .optional()
+      .isString()
+      .withMessage("status must be a string")
+      .bail()
+      .isIn(["active", "inactive"])
+      .withMessage("status must be either 'active' or 'inactive'"),
+  ],
+
+  create: [
+    body("name")
+      .exists()
+      .withMessage("name was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("name cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("name must be a string"),
+    body("location")
+      .exists()
+      .withMessage("location was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("location cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("location must be a string"),
+    body("websiteURL")
+      .optional()
+      .isString()
+      .withMessage("websiteURL must be a string"),
+    body("type")
+      .exists()
+      .withMessage("type was not provided")
+      .bail()
+      .isString()
+      .withMessage("type must be a string")
+      .bail()
+      .isIn(["pub", "restaurant", "venue"])
+      .withMessage("type must be either 'pub', 'restaurant' or 'venue'"),
+    body("marketingBlurb")
+      .optional()
+      .isString()
+      .withMessage("marketingBlurb must be a string"),
+    body("status")
+      .optional()
+      .isString()
+      .withMessage("status must be a string")
+      .bail()
+      .isIn(["active", "inactive"])
+      .withMessage("status must be either 'active' or 'inactive'"),
+  ],
+};
+
 export {
   userValidator,
   authValidator,
@@ -624,4 +681,5 @@ export {
   invitationValidator,
   mongoDBIdValidator,
   blogValidator,
+  allyValidator,
 };
