@@ -560,6 +560,59 @@ const invitationValidator = {
   ],
 };
 
+const blogValidator = {
+  create: [
+    body("title")
+      .exists()
+      .withMessage("title was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("title cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("title must be a string"),
+    body("author")
+      .exists()
+      .withMessage("author was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("author cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("author must be a string"),
+    body("status")
+      .exists()
+      .withMessage("status was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("status cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("status must be a string")
+      .bail()
+      .isIn(["draft", "published"])
+      .withMessage("status must be either 'draft' or 'published'"),
+    body("content")
+      .exists()
+      .withMessage("content was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("content cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("content must be a string"),
+  ],
+  query: [
+    body("status")
+      .optional()
+      .isString()
+      .withMessage("status must be a string")
+      .bail()
+      .isIn(["draft", "published"])
+      .withMessage("status must be either 'draft' or 'published'"),
+  ],
+};
+
 export {
   userValidator,
   authValidator,
@@ -570,4 +623,5 @@ export {
   charterValidator,
   invitationValidator,
   mongoDBIdValidator,
+  blogValidator,
 };
