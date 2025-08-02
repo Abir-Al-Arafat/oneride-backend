@@ -8,4 +8,6 @@ export interface IQuery {
   isActive?: boolean;
   status?: string;
   type?: string;
+  page?: number;
+  limit?: number;
 }
