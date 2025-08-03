@@ -1,5 +1,4 @@
-import path from "path";
-import fs from "fs";
+import { deleteImageFile } from "../utilities/fileUtils";
 import aboutModel from "../models/aboutUs.model";
 import { TUploadFields } from "../types/upload-fields";
 const addAboutService = async (data: any, files: TUploadFields) => {
@@ -9,12 +8,7 @@ const addAboutService = async (data: any, files: TUploadFields) => {
   }
   const about = await aboutModel.findOne({});
   if (about && about.heroImage) {
-    const oldImagePath = path.join(__dirname, "../../", about.heroImage);
-    fs.unlink(oldImagePath, (err) => {
-      if (err) {
-        console.error("Failed to delete old image:", err);
-      }
-    });
+    deleteImageFile(about.heroImage);
   }
   if (about) {
     const updatedAbout = await aboutModel.findByIdAndUpdate(about._id, data, {
