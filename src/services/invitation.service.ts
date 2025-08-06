@@ -1,5 +1,4 @@
 import invitationModel from "../models/invitation.model";
-import { emailWithNodemailerGmail } from "../config/email.config";
 
 const addInvitationService = async (data: any) => {
   const invitation = await invitationModel.create(data);
