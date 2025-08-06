@@ -3,6 +3,9 @@ import { Request } from "express";
 
 export interface IUser {
   _id?: ObjectId; // Optional for new users
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
   name?: string;
   username?: string;
   email?: string;
