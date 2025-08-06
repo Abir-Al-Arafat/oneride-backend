@@ -1,6 +1,4 @@
 import { body, param } from "express-validator";
-import { resetPassword } from "../controllers/auth.controller";
-import { updateCharterStatus } from "../controllers/charter.controller";
 
 const userValidator = {
   create: [
