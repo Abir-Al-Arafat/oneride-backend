@@ -146,4 +146,24 @@ const deleteEventService = async (id: string) => {
   return event;
 };
 
-export { createEventService, getAllEventsService, deleteEventService };
+const getEventServiceById = async (id: string) => {
+  const event = await Event.findById(id).populate("category");
+  return event;
+};
+
+const removeEventSeats = async (eventId: string, seats: number) => {
+  const event = await Event.findById(eventId);
+  if (!event) return null;
+  if (seats > event.totalSeat) return null;
+  event.totalSeat -= seats;
+  await event.save();
+  return true;
+};
+
+export {
+  createEventService,
+  getAllEventsService,
+  getEventServiceById,
+  deleteEventService,
+  removeEventSeats,
+};
