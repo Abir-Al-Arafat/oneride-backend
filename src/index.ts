@@ -21,8 +21,7 @@ import allyRouter from "./routes/ally.routes";
 import aboutRouter from "./routes/about.routes";
 import teamMemberRouter from "./routes/teamMember.routes";
 import serviceRouter from "./routes/service.routes";
-import driverRouter from "./routes/driver.routes";
-import rideRouter from "./routes/ride.routes";
+import bookingRouter from "./routes/booking.routes";
 import chatRouter from "./routes/chat.routes";
 import messageRouter from "./routes/message.routes";
 
@@ -71,8 +70,7 @@ app.use(`${baseApiUrl}/allies`, allyRouter);
 app.use(`${baseApiUrl}/about-us`, aboutRouter);
 app.use(`${baseApiUrl}/team-members`, teamMemberRouter);
 app.use(`${baseApiUrl}/services`, serviceRouter);
-app.use(`${baseApiUrl}/drivers`, driverRouter);
-app.use(`${baseApiUrl}/rides`, rideRouter);
+app.use(`${baseApiUrl}/bookings`, bookingRouter);
 app.use(`${baseApiUrl}/chats`, chatRouter);
 app.use(`${baseApiUrl}/messages`, messageRouter);
 
