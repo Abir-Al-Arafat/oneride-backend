@@ -91,6 +91,11 @@ class BookingController {
           ...req.body,
           roles: ["guest"],
         });
+        if (!newGuestUser) {
+          return res
+            .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+            .send(failure("Error creating guest user"));
+        }
         req.body.guestUser = newGuestUser._id;
       } else {
         req.body.guestUser = guestUser._id;
