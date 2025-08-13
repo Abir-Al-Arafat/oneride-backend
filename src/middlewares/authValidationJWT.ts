@@ -2,8 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jsonWebToken, { JwtPayload } from "jsonwebtoken";
 import HTTP_STATUS from "../constants/statusCodes";
 import { failure } from "../utilities/common";
-import { IUser } from "../interfaces/user.interface";
-import { UserRequest } from "../interfaces/user.interface";
+import { IUser, UserRequest } from "../interfaces/user.interface";
 
 const isAuthorizedAdmin = (req: Request, res: Response, next: NextFunction) => {
   try {
