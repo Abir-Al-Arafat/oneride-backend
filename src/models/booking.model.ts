@@ -25,6 +25,9 @@ const bookingModel = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Guest",
     },
+    paymentIntentId: {
+      type: String,
+    },
     paid: {
       type: Boolean,
       default: false,
