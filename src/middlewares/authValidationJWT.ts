@@ -183,4 +183,59 @@ const isAuthorizedUser = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { isAuthorizedAdmin, isAuthorizedSuperAdmin, isAuthorizedUser };
+const userExists = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log("headers", req.headers);
+
+    const { authorization } = req.headers;
+    // const { token: tokenCookie } = req.cookies;
+    // if (!tokenCookie) {
+    //   return res
+    //     .status(HTTP_STATUS.UNAUTHORIZED)
+    //     .send(failure("Unauthorized access, user not logged in"));
+    // }
+    // console.log("tokenCookie", tokenCookie);
+    if (!authorization) {
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .send(failure("Unauthorized access"));
+    }
+    console.log(authorization);
+    const tokenHeader = authorization.split(" ")[1];
+    console.log("tokenHeader", tokenHeader);
+    const validate = jsonWebToken.verify(
+      tokenHeader,
+      process.env.JWT_SECRET ?? "default_secret"
+    ) as JwtPayload;
+    // const validate = jsonWebToken.verify(
+    //   tokenCookie,
+    //   process.env.JWT_SECRET ?? "default_secret"
+    // ) as JwtPayload;
+
+    (req as UserRequest).user = validate as IUser;
+
+    next();
+  } catch (error) {
+    console.log(error);
+    if (error instanceof jsonWebToken.TokenExpiredError) {
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .send(failure("Access expired"));
+    } else if (error instanceof jsonWebToken.JsonWebTokenError) {
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .send(failure("Unauthorized access"));
+    } else {
+      return res
+        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+        .send(failure("Internal server error"));
+    }
+  }
+};
+
+export {
+  isAuthorizedAdmin,
+  isAuthorizedSuperAdmin,
+  isAuthorizedUser,
+  userExists,
+};
