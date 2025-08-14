@@ -7,6 +7,7 @@ export interface IQuery {
   isAffiliate?: boolean;
   isActive?: boolean;
   status?: string;
+  search?: string;
   type?: string;
   page?: number;
   limit?: number;

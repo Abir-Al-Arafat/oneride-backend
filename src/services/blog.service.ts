@@ -1,4 +1,8 @@
 import blogModel from "../models/blog.model";
+import { IQuery } from "../types/query-params";
+import QueryHelper from "../utilities/QueryHelper";
+
+const queryHelper = new QueryHelper();
 
 const addBlogService = async (data: any) => {
   const blog = await blogModel.create(data);
@@ -15,10 +19,12 @@ const deleteBlogService = async (id: string) => {
   return blog;
 };
 
-const getAllBlogsService = async (status?: string) => {
-  const query = status ? { status } : {};
-  const blogs = await blogModel.find(query);
-  return blogs;
+const getAllBlogsService = async ({ status, search }: IQuery) => {
+  return await queryHelper.query(blogModel, {
+    search: search || undefined,
+    searchFields: ["title"], // search only by title
+    filter: status ? { status } : {},
+  });
 };
 
 export {

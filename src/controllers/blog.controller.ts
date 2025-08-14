@@ -83,8 +83,12 @@ const getAllBlogs = async (req: Request, res: Response) => {
         .send(failure("Validation failed", validation[0].msg));
     }
 
-    const blogs = await getAllBlogsService(req.query.status as string);
-    if (!blogs.length) {
+    const blogs = await getAllBlogsService({
+      status: req.query.status as string,
+      search: req.query.search as string,
+    });
+
+    if (!blogs.result.length) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("blog not found"));
     }
     res.status(HTTP_STATUS.OK).send(success("blog fetched", blogs));
