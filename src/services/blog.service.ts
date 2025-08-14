@@ -9,6 +9,11 @@ const addBlogService = async (data: any) => {
   return blog;
 };
 
+const getBlogByIdService = async (id: string) => {
+  const blog = await blogModel.findById(id);
+  return blog;
+};
+
 const updateBlogService = async (id: string, data: any) => {
   const blog = await blogModel.findByIdAndUpdate(id, data, { new: true });
   return blog;
@@ -29,6 +34,7 @@ const getAllBlogsService = async ({ status, search }: IQuery) => {
 
 export {
   addBlogService,
+  getBlogByIdService,
   updateBlogService,
   deleteBlogService,
   getAllBlogsService,

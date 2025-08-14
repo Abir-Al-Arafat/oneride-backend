@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addBlog,
+  getBlogById,
   getAllBlogs,
   updateBlog,
   deleteBlog,
@@ -21,6 +22,8 @@ const upload = multer();
 routes.post("/", upload.none(), blogValidator.create, addBlog);
 
 routes.get("/", getAllBlogs);
+
+routes.get("/:id", mongoDBIdValidator, getBlogById);
 
 routes.put(
   "/:id",
