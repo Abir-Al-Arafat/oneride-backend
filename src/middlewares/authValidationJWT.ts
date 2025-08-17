@@ -15,7 +15,7 @@ const isAuthorizedAdmin = (req: Request, res: Response, next: NextFunction) => {
     //     .status(HTTP_STATUS.UNAUTHORIZED)
     //     .send(failure("Unauthorized access, admin not logged in"));
     // }
-    console.log(authorization);
+    console.log("authorization", authorization);
     if (!authorization) {
       return res
         .status(HTTP_STATUS.UNAUTHORIZED)
@@ -39,8 +39,8 @@ const isAuthorizedAdmin = (req: Request, res: Response, next: NextFunction) => {
     }
 
     (req as UserRequest).user = validate as IUser;
-    console.log("validate", validate.role);
-    if (validate.role == "admin" || validate.role == "superadmin") {
+    console.log("validate.roles", validate.roles);
+    if (validate.roles.includes("admin")) {
       next();
     } else {
       return res
