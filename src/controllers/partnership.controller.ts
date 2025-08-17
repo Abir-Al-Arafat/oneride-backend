@@ -46,13 +46,19 @@ class PartnershipController {
           .status(HTTP_STATUS.BAD_REQUEST)
           .send(failure("admin access required"));
       }
+      const validation = validationResult(req).array();
+      if (validation.length) {
+        return res
+          .status(HTTP_STATUS.BAD_REQUEST)
+          .send(failure("Validation failed", validation[0].msg));
+      }
       const partnership = await partnershipService.togglePartnershipByIdService(
         req.params.id,
         req.body
       );
       return res
         .status(HTTP_STATUS.OK)
-        .send(success("Partnership approved", partnership));
+        .send(success(`Partnership ${partnership?.status}`, partnership));
     } catch (error: any) {
       return res.status(HTTP_STATUS.BAD_REQUEST).send(failure(error));
     }
