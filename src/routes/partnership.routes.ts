@@ -27,9 +27,8 @@ routes.post(
 routes.patch(
   "/toggle/:id",
   upload.none(),
-  mongoDBIdValidator,
-  partnershipValidator.create,
-  userExists,
+  isAuthorizedAdmin,
+  partnershipValidator.togglePartnership,
   partnershipController.togglePartnership
 );
 
