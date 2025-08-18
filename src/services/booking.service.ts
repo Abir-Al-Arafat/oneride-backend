@@ -7,7 +7,7 @@ class BookingService {
   }
 
   async getBookingById(bookingId: string) {
-    return await bookingModel.findById(bookingId);
+    return await bookingModel.findById(bookingId).populate("event");
   }
 
   async deleteBookingById(bookingId: string) {
