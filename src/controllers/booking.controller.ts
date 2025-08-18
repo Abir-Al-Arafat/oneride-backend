@@ -45,6 +45,12 @@ class BookingController {
           .send(failure("Event not found"));
       }
 
+      if (event.totalSeat < req.body.ticketCount) {
+        return res
+          .status(HTTP_STATUS.BAD_REQUEST)
+          .send(failure("Not enough seats available"));
+      }
+
       const transport = await TransportService.getTransportById(
         req.body.transport
       );
