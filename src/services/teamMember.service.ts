@@ -1,5 +1,5 @@
 import { deleteImageFile } from "../utilities/fileUtils";
-import teamMemberModel from "../controllers/teamMember.model";
+import teamMemberModel from "../models/teamMember.model";
 import { TUploadFields } from "../types/upload-fields";
 
 const addTeamMemberService = async (data: any, files: TUploadFields) => {
