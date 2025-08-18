@@ -4,7 +4,15 @@ import QueryHelper from "../utilities/QueryHelper";
 
 class PartnershipService {
   public async getAllPartnershipsService(query?: IQuery) {
-    const { search, status, type, page = 1, limit = 10 } = query || {};
+    const {
+      search,
+      status,
+      type,
+      page = 1,
+      limit = 10,
+      dateFilter,
+      includeStats,
+    } = query || {};
     const filter: IQuery = {};
     if (status) {
       filter.status = status;
@@ -16,10 +24,12 @@ class PartnershipService {
     const queryHelper = new QueryHelper<typeof partnershipModel>();
     return await queryHelper.query(partnershipModel, {
       search: search || undefined,
-      searchFields: ["eventName"], // search only by title
+      searchFields: ["eventName"],
       filter,
       page: Number(page),
       limit: Number(limit),
+      dateFilter: dateFilter,
+      includeStats: includeStats && includeStats,
     });
   }
   public async createPartnershipService(data: any) {
