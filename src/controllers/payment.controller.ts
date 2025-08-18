@@ -5,6 +5,7 @@ import { success, failure } from "../utilities/common";
 import paymentService from "../services/payment.service";
 import bookingService from "../services/booking.service";
 import transactionService from "../services/transaction.service";
+import { getEventServiceById } from "../services/event.service";
 import { UserRequest } from "../interfaces/user.interface";
 
 class PaymentController {
@@ -71,6 +72,27 @@ class PaymentController {
     }
     req.body.userId = req.user._id;
     try {
+      const booking = await bookingService.getBookingById(req.body.bookingId);
+
+      if (!booking) {
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("Booking not found"));
+      }
+
+      const event = await getEventServiceById(booking.event._id.toString());
+      if (!event) {
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("Event not found"));
+      }
+      if (event.totalSeat < booking.ticketCount) {
+        return res
+          .status(HTTP_STATUS.BAD_REQUEST)
+          .send(failure("Not enough seats available"));
+      }
+      event.totalSeat -= booking.ticketCount;
+      await event.save();
       const payment = await transactionService.createTransaction(req.body);
       res.status(HTTP_STATUS.OK).send(success("Payment confirmed", payment));
     } catch (error) {
