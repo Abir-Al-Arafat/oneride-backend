@@ -29,6 +29,9 @@ const partnershipSchema = new mongoose.Schema(
     transportationNeeds: {
       type: String,
     },
+    adminNotes: {
+      type: String,
+    },
     image: {
       type: String,
     },

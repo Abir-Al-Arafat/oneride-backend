@@ -34,13 +34,20 @@ routes.patch(
 
 routes.get("/", partnershipController.getAllPartnerships);
 
-// routes.get(
-//   "/:id",
+routes.get(
+  "/:id",
+  mongoDBIdValidator,
+  partnershipController.getPartnershipById
+);
 
-//   mongoDBIdValidator,
-
-//   partnershipController.getPartnershipById
-// );
+routes.patch(
+  "/:id",
+  upload.none(),
+  isAuthorizedAdmin,
+  mongoDBIdValidator,
+  // partnershipValidator.updatePartnership,
+  partnershipController.updatePartnership
+);
 
 // routes.delete("/:id", mongoDBIdValidator, deleteAlly);
 

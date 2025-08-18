@@ -56,9 +56,63 @@ class PartnershipController {
         req.params.id,
         req.body
       );
+      if (!partnership)
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("data not found"));
       return res
         .status(HTTP_STATUS.OK)
         .send(success(`Partnership ${partnership?.status}`, partnership));
+    } catch (error: any) {
+      return res.status(HTTP_STATUS.BAD_REQUEST).send(failure(error));
+    }
+  }
+  public async getPartnershipById(req: UserRequest, res: Response) {
+    try {
+      const validation = validationResult(req).array();
+      if (validation.length) {
+        return res
+          .status(HTTP_STATUS.BAD_REQUEST)
+          .send(failure("Validation failed", validation[0].msg));
+      }
+      const partnership = await partnershipService.getPartnershipByIdService(
+        req.params.id
+      );
+      if (!partnership)
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("data not found"));
+      return res
+        .status(HTTP_STATUS.OK)
+        .send(success("Partnership fetched", partnership));
+    } catch (error: any) {
+      return res.status(HTTP_STATUS.BAD_REQUEST).send(failure(error));
+    }
+  }
+  public async updatePartnership(req: UserRequest, res: Response) {
+    try {
+      if (!req?.user || !req?.user?._id) {
+        return res
+          .status(HTTP_STATUS.BAD_REQUEST)
+          .send(failure("admin access required"));
+      }
+      // const validation = validationResult(req).array();
+      // if (validation.length) {
+      //   return res
+      //     .status(HTTP_STATUS.BAD_REQUEST)
+      //     .send(failure("Validation failed", validation[0].msg));
+      // }
+      const partnership = await partnershipService.updatePartnershipService(
+        req.params.id,
+        req.body
+      );
+      if (!partnership)
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("data not found"));
+      return res
+        .status(HTTP_STATUS.OK)
+        .send(success("Partnership updated", partnership));
     } catch (error: any) {
       return res.status(HTTP_STATUS.BAD_REQUEST).send(failure(error));
     }
