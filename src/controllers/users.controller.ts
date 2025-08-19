@@ -4,12 +4,14 @@ import { Request, Response } from "express";
 
 import { success, failure } from "../utilities/common";
 import { IQuery } from "../types/query-params";
+import { IUser } from "../interfaces/user.interface";
 import { TUploadFields } from "../types/upload-fields";
 import { validationResult } from "express-validator";
 import HTTP_STATUS from "../constants/statusCodes";
 import User from "../models/user.model";
 import Notification from "../models/notification.model";
 import { UserRequest } from "../interfaces/user.interface";
+import userService from "../services/user.service";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -165,45 +167,29 @@ const updateUserById = async (req: Request, res: Response) => {
   }
 };
 
-const updateProfileByUser = async (req: Request, res: Response) => {
+const updateProfileByUser = async (req: UserRequest, res: Response) => {
   try {
-    const { name, phone, image } = req.body;
-    console.log("body", req.body);
-    const user = await User.findById((req as UserRequest).user?._id);
-    if (!user) {
+    if (!(req as UserRequest)?.user || !(req as UserRequest)?.user?._id) {
       return res
         .status(HTTP_STATUS.NOT_FOUND)
-        .send({ message: "User not found" });
+        .send(failure("User not logged in"));
     }
+    const { name, phone, gender }: IUser = req.body;
+    console.log("body", req.body);
 
     const files = req.files as TUploadFields;
 
     console.log("files", files);
     console.log("files", files?.["image"]);
-
-    if (req.files && files?.["image"]) {
-      let imageFileName = "";
-      if (files?.image[0]) {
-        // Delete old image file if it exists
-        if (user.image) {
-          const oldImagePath = path.join(__dirname, "../", user.image);
-          fs.unlink(oldImagePath, (err) => {
-            if (err) {
-              console.error("Failed to delete old image:", err);
-            }
-          });
-        }
-
-        // Add public/uploads link to the new image file
-        imageFileName = `public/uploads/images/${files?.image[0]?.filename}`;
-        user.image = imageFileName;
-      }
-    }
-
-    const updatedUser = await User.findByIdAndUpdate(
-      (req as UserRequest).user?._id,
-      req.body,
-      { new: true }
+    const data: IUser = {
+      name,
+      phone,
+      gender,
+    };
+    const updatedUser = await userService.updateUserProfile(
+      (req as UserRequest)?.user?._id!,
+      data,
+      files?.["image"]?.[0] // pass single file
     );
 
     if (!updatedUser) {
@@ -212,8 +198,6 @@ const updateProfileByUser = async (req: Request, res: Response) => {
         .send({ message: "User not found" });
     }
 
-    console.log(updatedUser);
-    await user.save();
     return res
       .status(HTTP_STATUS.ACCEPTED)
       .send(success("Profile updated successfully", updatedUser));

@@ -18,6 +18,7 @@ import {
 } from "../middlewares/authValidationJWT";
 
 import fileUpload from "../middlewares/fileUpload";
+import fileUploadMemory from "../middlewares/fileUploadMemory";
 
 const routes = express();
 
@@ -35,7 +36,7 @@ routes.get("/auth/profile", isAuthorizedUser, profile);
 routes.patch(
   "/auth/update-profile-by-user",
   isAuthorizedUser,
-  fileUpload(),
+  fileUploadMemory,
   updateProfileByUser
 );
 
