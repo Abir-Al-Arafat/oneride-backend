@@ -13,6 +13,7 @@ export interface IUser {
   dob?: Date; //optional
   role?: string;
   roles?: string[];
+  gender?: "male" | "female" | "other";
   [key: string]: any;
 }
 
