@@ -10,6 +10,7 @@ import { initSocket } from "./config/socket";
 import { registerChatHandlers } from "./services/chat.service.socket";
 import databaseConnection from "./config/database";
 import userRouter from "./routes/user.routes";
+import userGuestRouter from "./routes/userGuest.routes";
 import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
 import transportRouter from "./routes/transport.routes";
@@ -61,6 +62,7 @@ app.use("/public", express.static(path.join(__dirname, "..", "public")));
 const baseApiUrl = "/api";
 
 app.use(`${baseApiUrl}/users`, userRouter);
+app.use(`${baseApiUrl}/users-guests`, userGuestRouter);
 app.use(`${baseApiUrl}/auth`, authRouter);
 app.use(`${baseApiUrl}/categories`, categoryRouter);
 app.use(`${baseApiUrl}/transports`, transportRouter);
