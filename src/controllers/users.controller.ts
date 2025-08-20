@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { Request, Response } from "express";
 
 import { success, failure } from "../utilities/common";
