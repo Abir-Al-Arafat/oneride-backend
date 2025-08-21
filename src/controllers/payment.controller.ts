@@ -92,6 +92,9 @@ class PaymentController {
           .send(failure("Not enough seats available"));
       }
       event.totalSeat -= booking.ticketCount;
+      booking.status = "confirmed";
+      booking.paid = true;
+      await booking.save();
       await event.save();
       const payment = await transactionService.createTransaction(req.body);
       res.status(HTTP_STATUS.OK).send(success("Payment confirmed", payment));
