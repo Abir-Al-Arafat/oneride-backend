@@ -32,6 +32,11 @@ const bookingModel = new Schema(
       type: Boolean,
       default: false,
     },
+    status: {
+      type: String,
+      enum: ["pending", "confirmed", "canceled"],
+      default: "pending",
+    },
     transaction: {
       type: Schema.Types.ObjectId,
       ref: "Transaction",
