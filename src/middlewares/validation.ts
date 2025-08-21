@@ -141,6 +141,14 @@ const userValidator = {
       .matches(/^[a-f\d]{24}$/i)
       .withMessage("ID is not in valid mongoDB format"),
   ],
+  toggleBan: [
+    body("userId")
+      .exists()
+      .withMessage("userId must be provided")
+      .bail()
+      .isMongoId()
+      .withMessage("userId must be a valid MongoDB ObjectId"),
+  ],
 };
 
 const authValidator = {

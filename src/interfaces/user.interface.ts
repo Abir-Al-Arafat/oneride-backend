@@ -14,6 +14,7 @@ export interface IUser {
   role?: string;
   roles?: string[];
   gender?: "male" | "female" | "other";
+  status?: "active" | "banned";
   [key: string]: any;
 }
 

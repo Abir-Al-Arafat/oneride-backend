@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import {
   getAllUsers,
@@ -8,6 +9,7 @@ import {
   updateUserById,
   profile,
   updateProfileByUser,
+  toggleBan,
   updateUserCurrentLocation,
 } from "../controllers/users.controller";
 
@@ -17,10 +19,13 @@ import {
   isAuthorizedSuperAdmin,
 } from "../middlewares/authValidationJWT";
 
+import { userValidator } from "../middlewares/validation";
+
 import fileUpload from "../middlewares/fileUpload";
 import fileUploadMemory from "../middlewares/fileUploadMemory";
 
 const routes = express();
+const upload = multer();
 
 // /api/users
 
@@ -35,9 +40,18 @@ routes.get("/auth/profile", isAuthorizedUser, profile);
 
 routes.patch(
   "/auth/update-profile-by-user",
+  upload.none(),
   isAuthorizedUser,
   fileUploadMemory,
   updateProfileByUser
+);
+
+routes.patch(
+  "/auth/toggle-ban",
+  upload.none(),
+  isAuthorizedAdmin,
+  userValidator.toggleBan,
+  toggleBan
 );
 
 routes.patch("/update-location", isAuthorizedUser, updateUserCurrentLocation);

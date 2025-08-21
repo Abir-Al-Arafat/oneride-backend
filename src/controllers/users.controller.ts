@@ -311,12 +311,47 @@ const updateUserCurrentLocation = async (req: UserRequest, res: Response) => {
   }
 };
 
+const toggleBan = async (req: UserRequest, res: Response) => {
+  try {
+    if (!req.user || !req.user?._id) {
+      return res
+        .status(HTTP_STATUS.UNAUTHORIZED)
+        .send(failure("please login to toggle ban status"));
+    }
+
+    const validation = validationResult(req).array();
+
+    if (validation.length) {
+      return res
+        .status(HTTP_STATUS.BAD_REQUEST)
+        .send(failure(validation[0].msg));
+    }
+
+    const { userId } = req.body;
+
+    const user = await userService.toggleBanService(userId);
+    if (!user) {
+      return res.status(HTTP_STATUS.NOT_FOUND).send(failure("User not found"));
+    }
+
+    return res
+      .status(HTTP_STATUS.OK)
+      .send(success(`User status updated to ${user.status}`, user));
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .send(failure("Internal server error"));
+  }
+};
+
 export {
   getAllUsers,
   getOneUserById,
   getNotificationsByUserId,
   getAllNotifications,
   updateUserById,
+  toggleBan,
   profile,
   updateProfileByUser,
   updateUserCurrentLocation,

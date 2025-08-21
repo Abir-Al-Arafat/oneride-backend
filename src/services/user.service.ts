@@ -60,6 +60,24 @@ class UserService {
       gender: user.gender,
     };
   }
+
+  async toggleBanService(userId: ObjectId) {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return null; // caller handles not found
+    }
+
+    user.status === "active"
+      ? (user.status = "banned")
+      : (user.status = "active");
+
+    await user.save();
+
+    return {
+      id: user._id,
+      status: user.status,
+    };
+  }
 }
 
 export default new UserService();
