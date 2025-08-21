@@ -1,9 +1,18 @@
 import bookingModel from "../models/booking.model";
+import { ObjectId } from "mongoose";
 
 class BookingService {
   async createBooking(bookingData: any) {
     const newBooking = new bookingModel(bookingData);
     return await newBooking.save();
+  }
+
+  async getBookingByUserId(userId: ObjectId) {
+    return await bookingModel
+      .find({
+        $or: [{ registeredUser: userId }, { guestUser: userId }],
+      })
+      .populate("event");
   }
 
   async getBookingById(bookingId: string) {

@@ -23,6 +23,12 @@ routes.post(
   isAuthorizedUser,
   BookingController.createBookingRegisteredUser
 );
+routes.get(
+  "/auth-user",
+  upload.none(),
+  isAuthorizedUser,
+  BookingController.getBookingByUserId
+);
 
 routes.post(
   "/guest-user",

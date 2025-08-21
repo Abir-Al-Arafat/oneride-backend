@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { differenceInDays } from "date-fns"; // npm install date-fns
 import { validationResult } from "express-validator";
 import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
@@ -166,6 +167,56 @@ class BookingController {
       return res
         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
         .send(failure("Error getting booking", error.message));
+    }
+  }
+
+  async getBookingByUserId(req: UserRequest, res: Response) {
+    try {
+      if (!req.user || !req.user._id) {
+        return res
+          .status(HTTP_STATUS.UNAUTHORIZED)
+          .send(failure("User not authenticated"));
+      }
+
+      const userId = req.user._id;
+      const bookings = await bookingService.getBookingByUserId(userId);
+
+      // Total bookings
+      const totalBookings = bookings.length;
+
+      // Total upcoming events
+      const totalUpcomingEvents = bookings.filter(
+        (b: any) => b.event?.websiteStatus === "upcoming"
+      ).length;
+
+      // Find last booking (most recent createdAt)
+      let lastBookingDaysAgo: number | null = null;
+      if (bookings.length > 0) {
+        const latestBooking = bookings.reduce((latest: any, current: any) =>
+          new Date(current.createdAt) > new Date(latest.createdAt)
+            ? current
+            : latest
+        );
+        lastBookingDaysAgo = differenceInDays(
+          new Date(),
+          new Date(latestBooking.createdAt)
+        );
+      }
+
+      return res.status(HTTP_STATUS.OK).send(
+        success("User bookings found", {
+          bookings,
+          stats: {
+            totalBookings,
+            totalUpcomingEvents,
+            lastBookingDaysAgo,
+          },
+        })
+      );
+    } catch (error: any) {
+      return res
+        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+        .send(failure("Error getting user bookings", error.message));
     }
   }
 }
