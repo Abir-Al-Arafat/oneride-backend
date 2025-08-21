@@ -19,8 +19,8 @@ const verifyEmailService = async (email: string, emailVerifyCode: string) => {
   const user = await User.findOne({ email, emailVerifyCode });
   if (user) {
     user.emailVerified = true;
-    await user.save();
-    return true;
+    user.emailVerifyCode = undefined;
+    return await user.save();
   }
   return false;
 };
