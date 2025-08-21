@@ -15,6 +15,8 @@ export interface IUser {
   roles?: string[];
   gender?: "male" | "female" | "other";
   status?: "active" | "banned";
+  emailVerified?: boolean;
+  emailVerifyCode?: string;
   [key: string]: any;
 }
 
