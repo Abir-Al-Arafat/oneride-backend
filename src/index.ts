@@ -25,6 +25,7 @@ import serviceRouter from "./routes/service.routes";
 import bookingRouter from "./routes/booking.routes";
 import paymentRouter from "./routes/payment.routes";
 import partnershipRouter from "./routes/partnership.routes";
+import termRouter from "./routes/term.routes";
 import chatRouter from "./routes/chat.routes";
 import messageRouter from "./routes/message.routes";
 
@@ -77,6 +78,7 @@ app.use(`${baseApiUrl}/services`, serviceRouter);
 app.use(`${baseApiUrl}/bookings`, bookingRouter);
 app.use(`${baseApiUrl}/payments`, paymentRouter);
 app.use(`${baseApiUrl}/partnerships`, partnershipRouter);
+app.use(`${baseApiUrl}/terms`, termRouter);
 app.use(`${baseApiUrl}/chats`, chatRouter);
 app.use(`${baseApiUrl}/messages`, messageRouter);
 
