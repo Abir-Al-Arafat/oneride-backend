@@ -19,6 +19,7 @@ import { UserRequest } from "../interfaces/user.interface";
 import {
   createEventService,
   getAllEventsService,
+  getEventServiceById,
   deleteEventService,
 } from "../services/event.service";
 
@@ -57,6 +58,23 @@ const getAllEvents = async (req: Request, res: Response) => {
   }
 };
 
+const getEventById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const event = await getEventServiceById(id);
+    if (!event) {
+      return res.status(HTTP_STATUS.NOT_FOUND).send(failure("Event not found"));
+    }
+    res
+      .status(HTTP_STATUS.OK)
+      .send(success("Event fetched successfully", event));
+  } catch (error: any) {
+    res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .send(failure("Error fetching event", error.message));
+  }
+};
+
 const deleteEvent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -74,4 +92,4 @@ const deleteEvent = async (req: Request, res: Response) => {
   }
 };
 
-export { createEvent, getAllEvents, deleteEvent };
+export { createEvent, getAllEvents, getEventById, deleteEvent };

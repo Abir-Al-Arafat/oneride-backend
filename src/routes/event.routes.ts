@@ -2,6 +2,7 @@ import express from "express";
 import {
   createEvent,
   getAllEvents,
+  getEventById,
   deleteEvent,
 } from "../controllers/event.controller";
 import multer from "multer";
@@ -22,6 +23,8 @@ const upload = multer();
 routes.post("/", fileUpload(), eventValidator.create, createEvent);
 
 routes.get("/", getAllEvents);
+
+routes.get("/:id", getEventById);
 
 routes.delete("/:id", deleteEvent);
 
