@@ -40,7 +40,6 @@ routes.get("/auth/profile", isAuthorizedUser, profile);
 
 routes.patch(
   "/auth/update-profile-by-user",
-  upload.none(),
   isAuthorizedUser,
   fileUploadMemory,
   updateProfileByUser

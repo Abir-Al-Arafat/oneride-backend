@@ -1,11 +1,22 @@
 import blogModel from "../models/blog.model";
 import { IQuery } from "../types/query-params";
 import QueryHelper from "../utilities/QueryHelper";
+import { deleteImageFile, handleFileUpload } from "../utilities/fileUtils";
 
 const queryHelper = new QueryHelper();
 
-const addBlogService = async (data: any) => {
+const addBlogService = async (data: any, file?: Express.Multer.File) => {
   const blog = await blogModel.create(data);
+  if (!blog) {
+    return null;
+  }
+  if (file) {
+    const savedFilePath = await handleFileUpload(file);
+    if (savedFilePath) {
+      blog.thumbnail = savedFilePath;
+      await blog.save();
+    }
+  }
   return blog;
 };
 
@@ -14,13 +25,32 @@ const getBlogByIdService = async (id: string) => {
   return blog;
 };
 
-const updateBlogService = async (id: string, data: any) => {
-  const blog = await blogModel.findByIdAndUpdate(id, data, { new: true });
+const updateBlogService = async (
+  id: string,
+  data: any,
+  file?: Express.Multer.File
+) => {
+  const blog = await blogModel.findById(id);
+  if (!blog) {
+    return null;
+  }
+  Object.assign(blog, data);
+  await blog.save();
+  if (file) {
+    const savedFilePath = await handleFileUpload(file, blog.thumbnail || null);
+    if (savedFilePath) {
+      blog.thumbnail = savedFilePath;
+      await blog.save();
+    }
+  }
   return blog;
 };
 
 const deleteBlogService = async (id: string) => {
   const blog = await blogModel.findByIdAndDelete(id);
+  if (blog && blog.thumbnail) {
+    deleteImageFile(blog.thumbnail);
+  }
   return blog;
 };
 

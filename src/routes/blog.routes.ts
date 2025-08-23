@@ -13,13 +13,13 @@ import {
   isAuthorizedAdmin,
   isAuthorizedSuperAdmin,
 } from "../middlewares/authValidationJWT";
-
+import fileUploadMemory from "../middlewares/fileUploadMemory";
 import { blogValidator, mongoDBIdValidator } from "../middlewares/validation";
 
 const routes = express();
 const upload = multer();
 
-routes.post("/", upload.none(), blogValidator.create, addBlog);
+routes.post("/", fileUploadMemory, blogValidator.create, addBlog);
 
 routes.get("/", getAllBlogs);
 
@@ -27,7 +27,7 @@ routes.get("/:id", mongoDBIdValidator, getBlogById);
 
 routes.put(
   "/:id",
-  upload.none(),
+  fileUploadMemory,
   mongoDBIdValidator,
   blogValidator.create,
   updateBlog

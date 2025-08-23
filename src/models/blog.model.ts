@@ -16,6 +16,9 @@ const blogModel = new Schema(
     content: {
       type: String,
     },
+    thumbnail: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

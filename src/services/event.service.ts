@@ -2,8 +2,6 @@ import fs from "fs";
 import Event from "../models/event.model";
 import Transport from "../models/transport.model";
 import Category from "../models/category.model";
-import HTTP_STATUS from "../constants/statusCodes";
-import { success, failure } from "../utilities/common";
 import { TUploadFields } from "../types/upload-fields";
 import { filterByDateRange } from "../utilities/filters";
 

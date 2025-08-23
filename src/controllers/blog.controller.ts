@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
+import { TUploadFields } from "../types/upload-fields";
 
 import {
   addBlogService,
@@ -19,8 +20,8 @@ const addBlog = async (req: Request, res: Response) => {
         .status(HTTP_STATUS.BAD_REQUEST)
         .send(failure("Validation failed", validation[0].msg));
     }
-
-    const blog = await addBlogService(req.body);
+    const files = req.files as TUploadFields;
+    const blog = await addBlogService(req.body, files?.["image"]?.[0]);
     if (!blog) {
       return res
         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
@@ -62,7 +63,12 @@ const updateBlog = async (req: Request, res: Response) => {
         .status(HTTP_STATUS.BAD_REQUEST)
         .send(failure("Validation failed", validation[0].msg));
     }
-    const blog = await updateBlogService(req.params.id, req.body);
+    const files = req.files as TUploadFields;
+    const blog = await updateBlogService(
+      req.params.id,
+      req.body,
+      files?.["image"]?.[0]
+    );
     if (!blog) {
       return res
         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
