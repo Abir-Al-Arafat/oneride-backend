@@ -53,6 +53,14 @@ const updateAllyService = async (
 
 const deleteAllyService = async (id: string) => {
   const ally = await allyModel.findByIdAndDelete(id);
+  if (ally) {
+    if (ally.logo) {
+      const oldImagePath = path.join(__dirname, "../../", ally.logo);
+      fs.unlink(oldImagePath, (err) => {
+        if (err) console.error("Failed to delete old image:", err);
+      });
+    }
+  }
   return ally;
 };
 
