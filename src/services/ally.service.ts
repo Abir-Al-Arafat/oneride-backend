@@ -3,7 +3,7 @@ import path from "path";
 import allyModel from "../models/ally.model";
 import { IQuery } from "../types/query-params";
 import QueryHelper from "../utilities/QueryHelper";
-import { handleFileUpload } from "../utilities/fileUtils";
+import { deleteImageFile, handleFileUpload } from "../utilities/fileUtils";
 const addAllyService = async (data: any, file?: Express.Multer.File) => {
   const ally = await allyModel.create(data);
   if (!ally) {
@@ -42,13 +42,8 @@ const updateAllyService = async (
 
 const deleteAllyService = async (id: string) => {
   const ally = await allyModel.findByIdAndDelete(id);
-  if (ally) {
-    if (ally.logo) {
-      const oldImagePath = path.join(__dirname, "../../", ally.logo);
-      fs.unlink(oldImagePath, (err) => {
-        if (err) console.error("Failed to delete old image:", err);
-      });
-    }
+  if (ally && ally.logo) {
+    deleteImageFile(ally.logo);
   }
   return ally;
 };
