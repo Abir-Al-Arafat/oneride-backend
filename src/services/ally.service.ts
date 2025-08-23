@@ -1,8 +1,23 @@
+import fs from "fs";
+import path from "path";
 import allyModel from "../models/ally.model";
 import { IQuery } from "../types/query-params";
 import QueryHelper from "../utilities/QueryHelper";
-const addAllyService = async (data: any) => {
+const addAllyService = async (data: any, file?: Express.Multer.File) => {
   const ally = await allyModel.create(data);
+  if (!ally) {
+    return null;
+  }
+  if (file) {
+    // define new file path
+    const newFileName =
+      Date.now() + "-" + file.originalname.replace(/\s+/g, "_");
+    const newFilePath = path.join("public/uploads/images", newFileName);
+    // save buffer to disk
+    fs.writeFileSync(newFilePath, file.buffer);
+    ally.logo = `public/uploads/images/${newFileName}`;
+    await ally.save();
+  }
   return ally;
 };
 

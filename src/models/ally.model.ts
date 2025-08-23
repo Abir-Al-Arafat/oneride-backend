@@ -23,6 +23,9 @@ const allyModel = new Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
+    logo: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

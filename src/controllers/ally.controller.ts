@@ -9,6 +9,7 @@ import {
   deleteAllyService,
   getAllAllyService,
 } from "../services/ally.service";
+import { TUploadFields } from "../types/upload-fields";
 
 const addAlly = async (req: Request, res: Response) => {
   try {
@@ -18,8 +19,8 @@ const addAlly = async (req: Request, res: Response) => {
         .status(HTTP_STATUS.BAD_REQUEST)
         .send(failure("Validation failed", validation[0].msg));
     }
-
-    const ally = await addAllyService(req.body);
+    const files = req.files as TUploadFields;
+    const ally = await addAllyService(req.body, files?.["image"]?.[0]);
     if (!ally) {
       return res
         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)

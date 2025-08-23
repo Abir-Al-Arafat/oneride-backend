@@ -12,13 +12,13 @@ import {
   isAuthorizedAdmin,
   isAuthorizedSuperAdmin,
 } from "../middlewares/authValidationJWT";
-
+import fileUploadMemory from "../middlewares/fileUploadMemory";
 import { allyValidator, mongoDBIdValidator } from "../middlewares/validation";
 
 const routes = express();
 const upload = multer();
 
-routes.post("/", upload.none(), allyValidator.create, addAlly);
+routes.post("/", fileUploadMemory, allyValidator.create, addAlly);
 
 routes.get("/", getAllAlly);
 
