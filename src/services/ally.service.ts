@@ -3,20 +3,18 @@ import path from "path";
 import allyModel from "../models/ally.model";
 import { IQuery } from "../types/query-params";
 import QueryHelper from "../utilities/QueryHelper";
+import { handleFileUpload } from "../utilities/fileUtils";
 const addAllyService = async (data: any, file?: Express.Multer.File) => {
   const ally = await allyModel.create(data);
   if (!ally) {
     return null;
   }
   if (file) {
-    // define new file path
-    const newFileName =
-      Date.now() + "-" + file.originalname.replace(/\s+/g, "_");
-    const newFilePath = path.join("public/uploads/images", newFileName);
-    // save buffer to disk
-    fs.writeFileSync(newFilePath, file.buffer);
-    ally.logo = `public/uploads/images/${newFileName}`;
-    await ally.save();
+    const savedFilePath = handleFileUpload(file);
+    if (savedFilePath) {
+      ally.logo = savedFilePath;
+      await ally.save();
+    }
   }
   return ally;
 };
@@ -33,20 +31,11 @@ const updateAllyService = async (
   Object.assign(ally, data);
   await ally.save();
   if (file) {
-    if (ally.logo) {
-      const oldImagePath = path.join(__dirname, "../../", ally.logo);
-      fs.unlink(oldImagePath, (err) => {
-        if (err) console.error("Failed to delete old image:", err);
-      });
+    const savedFilePath = handleFileUpload(file, ally.logo || null);
+    if (savedFilePath) {
+      ally.logo = savedFilePath;
+      await ally.save();
     }
-    // define new file path
-    const newFileName =
-      Date.now() + "-" + file.originalname.replace(/\s+/g, "_");
-    const newFilePath = path.join("public/uploads/images", newFileName);
-    // save buffer to disk
-    fs.writeFileSync(newFilePath, file.buffer);
-    ally.logo = `public/uploads/images/${newFileName}`;
-    await ally.save();
   }
   return ally;
 };
