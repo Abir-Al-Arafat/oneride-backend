@@ -24,7 +24,7 @@ routes.get("/", getAllAlly);
 
 routes.put(
   "/:id",
-  upload.none(),
+  fileUploadMemory,
   mongoDBIdValidator,
   allyValidator.create,
   updateAlly

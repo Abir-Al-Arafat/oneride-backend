@@ -42,7 +42,12 @@ const updateAlly = async (req: Request, res: Response) => {
         .status(HTTP_STATUS.BAD_REQUEST)
         .send(failure("Validation failed", validation[0].msg));
     }
-    const ally = await updateAllyService(req.params.id, req.body);
+    const files = req.files as TUploadFields;
+    const ally = await updateAllyService(
+      req.params.id,
+      req.body,
+      files?.["image"]?.[0]
+    );
     if (!ally) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("Ally not found"));
     }
