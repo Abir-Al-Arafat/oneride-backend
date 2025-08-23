@@ -31,48 +31,6 @@ const createEventService = async (body: any, files?: TUploadFields) => {
   let parsedParkAndRides: any[] = [];
   let parsedPubPickups: any[] = [];
 
-  try {
-    parsedBusRoutes = JSON.parse(busRoutes);
-    parsedParkAndRides = JSON.parse(parkAndRides);
-    parsedPubPickups = JSON.parse(pubPickups);
-  } catch (err: any) {
-    throw new Error(
-      "Invalid JSON in transport arrays. eg: busRoutes, parkAndRides, pubPickups"
-    );
-  }
-
-  if (!Array.isArray(parsedBusRoutes))
-    throw new Error("busRoutes must be an array");
-  if (!Array.isArray(parsedParkAndRides))
-    throw new Error("parkAndRides must be an array");
-  if (!Array.isArray(parsedPubPickups))
-    throw new Error("pubPickups must be an array");
-
-  // Existence checks
-  const busRoutesExist = await Transport.find({
-    _id: { $in: parsedBusRoutes },
-    type: "busRoute",
-  });
-  if (!busRoutesExist.length) throw new Error("bus routes do not exist");
-  if (busRoutesExist.length !== parsedBusRoutes.length)
-    throw new Error("Some bus routes do not exist");
-
-  const parkAndRidesExist = await Transport.find({
-    _id: { $in: parsedParkAndRides },
-    type: "parkAndRide",
-  });
-  if (!parkAndRidesExist.length) throw new Error("park and rides do not exist");
-  if (parkAndRidesExist.length !== parsedParkAndRides.length)
-    throw new Error("Some park and rides do not exist");
-
-  const pubPickupsExist = await Transport.find({
-    _id: { $in: parsedPubPickups },
-    type: "pubPickup",
-  });
-  if (!pubPickupsExist.length) throw new Error("pub pickups do not exist");
-  if (pubPickupsExist.length !== parsedPubPickups.length)
-    throw new Error("Some pub pickups do not exist");
-
   // Handle image
   let imageFileName = "";
   if (files && files["image"] && files.image[0]) {
@@ -89,9 +47,9 @@ const createEventService = async (body: any, files?: TUploadFields) => {
     startTime,
     endTime,
     venueName,
-    busRoutes: busRoutesExist.map((route) => route._id),
-    parkAndRides: parkAndRidesExist.map((ride) => ride._id),
-    pubPickups: pubPickupsExist.map((pickup) => pickup._id),
+    // busRoutes: busRoutesExist && busRoutesExist.map((route) => route._id),
+    // parkAndRides: parkAndRidesExist && parkAndRidesExist.map((ride) => ride._id),
+    // pubPickups: pubPickupsExist && pubPickupsExist.map((pickup) => pickup._id),
     totalSeat,
     ticketPrice,
     image: imageFileName,
@@ -99,11 +57,68 @@ const createEventService = async (body: any, files?: TUploadFields) => {
     websiteStatus: websiteStatus || "upcoming",
   });
 
+  if (!event) throw new Error("Event creation failed");
+
+  try {
+    if (busRoutes) {
+      parsedBusRoutes = JSON.parse(busRoutes);
+      if (!Array.isArray(parsedBusRoutes))
+        throw new Error("busRoutes must be an array");
+
+      // Existence checks
+      const busRoutesExist = await Transport.find({
+        _id: { $in: parsedBusRoutes },
+        type: "busRoute",
+      });
+      if (!busRoutesExist.length) throw new Error("bus routes do not exist");
+      if (busRoutesExist.length !== parsedBusRoutes.length)
+        throw new Error("Some bus routes do not exist");
+      event.busRoutes = busRoutesExist.map((route) => route._id);
+    }
+    if (parkAndRides) {
+      parsedParkAndRides = JSON.parse(parkAndRides);
+      if (!Array.isArray(parsedParkAndRides))
+        throw new Error("parkAndRides must be an array");
+
+      // Existence checks
+      const parkAndRidesExist = await Transport.find({
+        _id: { $in: parsedParkAndRides },
+        type: "parkAndRide",
+      });
+      if (!parkAndRidesExist.length)
+        throw new Error("park and rides do not exist");
+      if (parkAndRidesExist.length !== parsedParkAndRides.length)
+        throw new Error("Some park and rides do not exist");
+      event.parkAndRides = parkAndRidesExist.map((ride) => ride._id);
+    }
+    if (pubPickups) {
+      parsedPubPickups = JSON.parse(pubPickups);
+      if (!Array.isArray(parsedPubPickups))
+        throw new Error("pubPickups must be an array");
+
+      // Existence checks
+      const pubPickupsExist = await Transport.find({
+        _id: { $in: parsedPubPickups },
+        type: "pubPickup",
+      });
+      if (!pubPickupsExist.length) throw new Error("pub pickups do not exist");
+      if (pubPickupsExist.length !== parsedPubPickups.length)
+        throw new Error("Some pub pickups do not exist");
+      event.pubPickups = pubPickupsExist.map((pickup) => pickup._id);
+    }
+  } catch (err: any) {
+    throw new Error(
+      "Invalid JSON in transport arrays. eg: busRoutes, parkAndRides, pubPickups"
+    );
+  }
+  await event.save();
+
   return event;
 };
 
 const getAllEventsService = async (query: any) => {
-  const { category, title, adminStatus, filterByQuarter } = query;
+  const { category, title, adminStatus, filterByQuarter, transportType } =
+    query;
   let dbQuery: any = {};
   // If category is a string, try to find by name
   if (category) {
@@ -119,6 +134,16 @@ const getAllEventsService = async (query: any) => {
         // No such category, return empty result
         return [];
       }
+    }
+  }
+  // Transport filter
+  if (transportType) {
+    if (transportType === "busRoute") {
+      dbQuery.busRoutes = { $exists: true, $not: { $size: 0 } };
+    } else if (transportType === "parkAndRide") {
+      dbQuery.parkAndRides = { $exists: true, $not: { $size: 0 } };
+    } else if (transportType === "pubPickup") {
+      dbQuery.pubPickups = { $exists: true, $not: { $size: 0 } };
     }
   }
   if (title) dbQuery.title = { $regex: new RegExp(String(title), "i") };
