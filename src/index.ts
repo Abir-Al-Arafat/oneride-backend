@@ -27,6 +27,7 @@ import paymentRouter from "./routes/payment.routes";
 import partnershipRouter from "./routes/partnership.routes";
 import termRouter from "./routes/term.routes";
 import faqRouter from "./routes/faq.routes";
+import dashboardRouter from "./routes/dashboard.route";
 import chatRouter from "./routes/chat.routes";
 import messageRouter from "./routes/message.routes";
 
@@ -83,6 +84,7 @@ app.use(`${baseApiUrl}/terms`, termRouter);
 app.use(`${baseApiUrl}/faqs`, faqRouter);
 app.use(`${baseApiUrl}/chats`, chatRouter);
 app.use(`${baseApiUrl}/messages`, messageRouter);
+app.use(`${baseApiUrl}/dashboard`, dashboardRouter);
 
 app.get("/", (req, res) => {
   return res.status(200).send({
