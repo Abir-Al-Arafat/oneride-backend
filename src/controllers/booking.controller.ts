@@ -162,6 +162,11 @@ class BookingController {
           .send(failure("Validation failed", errors.array()[0].msg));
       }
       const booking = await bookingService.getBookingById(req.params.id);
+      if (!booking) {
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("Booking not found"));
+      }
       return res.status(HTTP_STATUS.OK).send(success("Booking found", booking));
     } catch (error: any) {
       return res
