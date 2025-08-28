@@ -6,7 +6,7 @@ import {
 } from "../controllers/transport.controller";
 import multer from "multer";
 
-import { transportValidator } from "../middlewares/validation";
+import transportValidator from "../validators/transportValidator";
 
 import {
   isAuthorizedUser,
