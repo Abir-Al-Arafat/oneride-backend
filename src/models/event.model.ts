@@ -21,6 +21,8 @@ const eventSchema = new mongoose.Schema(
     parkAndRides: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transport" }],
     pubPickups: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transport" }],
 
+    transports: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transport" }],
+
     totalSeat: { type: Number, required: true },
     ticketPrice: { type: Number, required: true },
 
