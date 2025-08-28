@@ -354,37 +354,37 @@ const reviewValidator = {
   ],
 };
 
-const transportValidator = {
-  create: [
-    body("type")
-      .exists()
-      .withMessage("type was not provided")
-      .bail()
-      .isString()
-      .withMessage("type must be a string")
-      .bail()
-      .isIn(["busRoute", "parkAndRide", "pubPickup"])
-      .withMessage("type must be busRoute, parkAndRide or pubPickup"),
-    body("pickUpPoint")
-      .exists()
-      .withMessage("pickUpPoint was not provided")
-      .bail()
-      .isString()
-      .withMessage("pickUpPoint must be a string"),
-    body("duration")
-      .exists()
-      .withMessage("duration was not provided")
-      .bail()
-      .isNumeric()
-      .withMessage("duration must be a number"),
-    body("departureTime")
-      .exists()
-      .withMessage("departureTime was not provided")
-      .bail()
-      .isString()
-      .withMessage("departureTime must be a string"),
-  ],
-};
+// const transportValidator = {
+//   create: [
+//     body("type")
+//       .exists()
+//       .withMessage("type was not provided")
+//       .bail()
+//       .isString()
+//       .withMessage("type must be a string")
+//       .bail()
+//       .isIn(["busRoute", "parkAndRide", "pubPickup"])
+//       .withMessage("type must be busRoute, parkAndRide or pubPickup"),
+//     body("pickUpPoint")
+//       .exists()
+//       .withMessage("pickUpPoint was not provided")
+//       .bail()
+//       .isString()
+//       .withMessage("pickUpPoint must be a string"),
+//     body("duration")
+//       .exists()
+//       .withMessage("duration was not provided")
+//       .bail()
+//       .isNumeric()
+//       .withMessage("duration must be a number"),
+//     body("departureTime")
+//       .exists()
+//       .withMessage("departureTime was not provided")
+//       .bail()
+//       .isString()
+//       .withMessage("departureTime must be a string"),
+//   ],
+// };
 
 const eventValidator = {
   create: [
@@ -681,7 +681,7 @@ export {
   authValidator,
   reviewValidator,
   driverValidator,
-  transportValidator,
+  // transportValidator,
   eventValidator,
   charterValidator,
   invitationValidator,
