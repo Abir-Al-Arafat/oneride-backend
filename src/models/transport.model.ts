@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const locationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  lat: { type: Number },
+  lng: { type: Number },
+});
+
 const transportSchema = new mongoose.Schema(
   {
     type: {
@@ -8,7 +14,11 @@ const transportSchema = new mongoose.Schema(
       required: true,
     },
     pickUpPoint: {
-      type: String,
+      type: locationSchema,
+      required: true,
+    },
+    dropOffPoint: {
+      type: locationSchema,
       required: true,
     },
     duration: {
