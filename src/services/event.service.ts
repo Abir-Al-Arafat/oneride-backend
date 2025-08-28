@@ -15,6 +15,7 @@ const createEventService = async (body: any, files?: TUploadFields) => {
     startTime,
     endTime,
     venueName,
+    transports,
     busRoutes,
     parkAndRides,
     pubPickups,
@@ -25,6 +26,7 @@ const createEventService = async (body: any, files?: TUploadFields) => {
   } = body;
 
   // Parse and validate arrays
+  let parsedTransports: any[] = [];
   let parsedBusRoutes: any[] = [];
   let parsedParkAndRides: any[] = [];
   let parsedPubPickups: any[] = [];
@@ -58,6 +60,21 @@ const createEventService = async (body: any, files?: TUploadFields) => {
   if (!event) throw new Error("Event creation failed");
 
   try {
+    console.log("transports", transports);
+    if (transports) {
+      parsedTransports = JSON.parse(transports);
+      if (!Array.isArray(parsedTransports))
+        throw new Error("transports must be an array");
+
+      // Existence checks
+      const transportsExist = await Transport.find({
+        _id: { $in: parsedTransports },
+      });
+      if (!transportsExist.length) throw new Error("transports do not exist");
+      if (transportsExist.length !== parsedTransports.length)
+        throw new Error("Some transports do not exist");
+      event.transports = transportsExist.map((transport) => transport._id);
+    }
     if (busRoutes) {
       parsedBusRoutes = JSON.parse(busRoutes);
       if (!Array.isArray(parsedBusRoutes))
