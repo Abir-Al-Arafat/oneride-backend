@@ -13,9 +13,8 @@ import { mongoDBIdValidator } from "../middlewares/validation";
 const routes = express();
 const upload = multer();
 
-routes.get(
-  "/overview",
-  dashboardController.getDashboardOverview.bind(dashboardController)
-);
+routes.get("/overview", dashboardController.getDashboardOverview);
+
+routes.get("/earnings", dashboardController.getEarningsChartData);
 
 export default routes;
