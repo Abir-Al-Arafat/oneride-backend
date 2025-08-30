@@ -191,8 +191,12 @@ const deleteEventService = async (id: string) => {
   return event;
 };
 
-const getEventServiceById = async (id: string) => {
-  const event = await Event.findById(id).populate("category");
+const getEventServiceById = async (id: string, transports?: boolean) => {
+  let query = Event.findById(id).populate("category");
+  if (transports) {
+    query = query.populate("transports");
+  }
+  const event = await query;
   return event;
 };
 

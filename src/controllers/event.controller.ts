@@ -60,8 +60,10 @@ const getAllEvents = async (req: Request, res: Response) => {
 
 const getEventById = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const transports = req.query.transports === "true";
+
   try {
-    const event = await getEventServiceById(id);
+    const event = await getEventServiceById(id, transports);
     if (!event) {
       return res.status(HTTP_STATUS.NOT_FOUND).send(failure("Event not found"));
     }
