@@ -2,6 +2,7 @@ import express from "express";
 import {
   createTransport,
   getAllTransports,
+  getTransportById,
   deleteTransport,
 } from "../controllers/transport.controller";
 import multer from "multer";
@@ -20,6 +21,8 @@ const upload = multer();
 routes.post("/", upload.none(), transportValidator.create, createTransport);
 
 routes.get("/", getAllTransports);
+
+routes.get("/:id", getTransportById);
 
 routes.delete("/:id", deleteTransport);
 

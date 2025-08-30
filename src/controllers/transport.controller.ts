@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
 import { success, failure } from "../utilities/common";
+import HTTP_STATUS from "../constants/statusCodes";
 
 import User from "../models/user.model";
 import Phone from "../models/phone.model";
 import Transport from "../models/transport.model";
 
-import HTTP_STATUS from "../constants/statusCodes";
+import transportService from "../services/transport.service";
 
 import { CreateUserQueryParams } from "../types/query-params";
 
@@ -73,4 +74,23 @@ const getAllTransports = async (req: Request, res: Response) => {
   }
 };
 
-export { createTransport, getAllTransports, deleteTransport };
+const getTransportById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const transport = await transportService.getTransportById(id);
+    if (!transport) {
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .send(failure("Transport not found"));
+    }
+    res
+      .status(HTTP_STATUS.OK)
+      .send(success("Transport retrieved successfully", transport));
+  } catch (error: any) {
+    res
+      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .send(failure("Error retrieving transport", error.message));
+  }
+};
+
+export { createTransport, getAllTransports, deleteTransport, getTransportById };

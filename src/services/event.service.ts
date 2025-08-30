@@ -63,9 +63,13 @@ const createEventService = async (body: any, files?: TUploadFields) => {
     console.log("transports", transports);
     if (transports) {
       parsedTransports = JSON.parse(transports);
+      console.log("parsedTransports", parsedTransports);
       if (!Array.isArray(parsedTransports))
         throw new Error("transports must be an array");
-
+      console.log(
+        "!Array.isArray(parsedTransports)",
+        Array.isArray(parsedTransports)
+      );
       // Existence checks
       const transportsExist = await Transport.find({
         _id: { $in: parsedTransports },
@@ -122,6 +126,7 @@ const createEventService = async (body: any, files?: TUploadFields) => {
       event.pubPickups = pubPickupsExist.map((pickup) => pickup._id);
     }
   } catch (err: any) {
+    console.error("Error parsing transport arrays:", err);
     throw new Error(
       "Invalid JSON in transport arrays. eg: busRoutes, parkAndRides, pubPickups"
     );
