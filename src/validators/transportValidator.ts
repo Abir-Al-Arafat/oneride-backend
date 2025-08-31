@@ -54,6 +54,13 @@ const transportValidator = {
       .isFloat()
       .withMessage("dropOffPoint.lng must be a number"),
 
+    body("price")
+      .exists()
+      .withMessage("price was not provided")
+      .bail()
+      .isFloat()
+      .withMessage("price must be a number"),
+
     body("duration")
       .exists()
       .withMessage("duration was not provided")

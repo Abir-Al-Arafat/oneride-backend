@@ -21,6 +21,10 @@ const transportSchema = new mongoose.Schema(
       type: locationSchema,
       required: true,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
     duration: {
       type: String, // e.g., "45 mins"
       required: true,
