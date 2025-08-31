@@ -1,17 +1,9 @@
-import fs from "fs";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
 import { success, failure, generateRandomCode } from "../utilities/common";
 
-import User from "../models/user.model";
-import Phone from "../models/phone.model";
-import Event from "../models/event.model";
-import Transport from "../models/transport.model";
-
 import HTTP_STATUS from "../constants/statusCodes";
-import { emailWithNodemailerGmail } from "../config/email.config";
-import { CreateUserQueryParams } from "../types/query-params";
 
 import { TUploadFields } from "../types/upload-fields";
 import { UserRequest } from "../interfaces/user.interface";

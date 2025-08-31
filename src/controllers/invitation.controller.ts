@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import HTTP_STATUS from "../constants/statusCodes";
 import { success, failure } from "../utilities/common";
-import invitationModel from "../models/invitation.model";
 import { emailWithNodemailerGmail } from "../config/email.config";
 import {
   addInvitationService,

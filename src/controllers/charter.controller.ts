@@ -4,7 +4,6 @@ import { emailWithNodemailerGmail } from "../config/email.config";
 
 import { success, failure } from "../utilities/common";
 
-import Charter from "../models/charter.model";
 import {
   createCharterService,
   deleteCharterService,

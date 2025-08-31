@@ -4,16 +4,9 @@ import { validationResult } from "express-validator";
 import { success, failure } from "../utilities/common";
 import HTTP_STATUS from "../constants/statusCodes";
 
-import User from "../models/user.model";
-import Phone from "../models/phone.model";
 import Transport from "../models/transport.model";
 
 import transportService from "../services/transport.service";
-
-import { CreateUserQueryParams } from "../types/query-params";
-
-import { TUploadFields } from "../types/upload-fields";
-import { UserRequest } from "../interfaces/user.interface";
 
 const createTransport = async (req: Request, res: Response) => {
   try {

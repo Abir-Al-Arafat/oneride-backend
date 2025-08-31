@@ -5,8 +5,6 @@ import { success, failure } from "../utilities/common";
 
 import faqService from "../services/faq.service";
 
-import { TUploadFields } from "../types/upload-fields";
-
 class FaqController {
   async createFAQ(req: Request, res: Response) {
     const errors = validationResult(req);

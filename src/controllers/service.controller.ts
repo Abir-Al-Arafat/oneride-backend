@@ -420,33 +420,6 @@ const generateReplyForService = async (req: Request, res: Response) => {
   }
 };
 
-// const disableServiceById = async (req, res) => {
-//   try {
-//     if (!req.params.id) {
-//       return res
-//         .status(HTTP_STATUS.NOT_FOUND)
-//         .send(failure("Please provide service id"));
-//     }
-//     const service = await Service.findByIdAndUpdate(
-//       req.params.id,
-//       { isDisabled: true },
-//       { new: true }
-//     );
-//     if (!service) {
-//       return res
-//         .status(HTTP_STATUS.NOT_FOUND)
-//         .send(failure("Service not found"));
-//     }
-//     return res
-//       .status(HTTP_STATUS.OK)
-//       .send(success("Successfully disabled service", service));
-//   } catch (error) {
-//     return res
-//       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-//       .send(failure("Error disabling service", error.message));
-//   }
-// };
-
 // const enableServiceById = async (req, res) => {
 //   try {
 //     if (!req.params.id) {
