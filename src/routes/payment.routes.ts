@@ -19,7 +19,7 @@ routes.post(
   "/intents",
   upload.none(),
   paymentValidator.create,
-  isAuthorizedUser,
+  // isAuthorizedUser,
   PaymentController.createPaymentIntent
 );
 

@@ -11,11 +11,11 @@ import { UserRequest } from "../interfaces/user.interface";
 class PaymentController {
   async createPaymentIntent(req: UserRequest, res: Response) {
     try {
-      if (!req.user || !req.user?._id) {
-        return res
-          .status(HTTP_STATUS.UNAUTHORIZED)
-          .send(failure("User not authenticated"));
-      }
+      // if (!req.user || !req.user?._id) {
+      //   return res
+      //     .status(HTTP_STATUS.UNAUTHORIZED)
+      //     .send(failure("User not authenticated"));
+      // }
 
       if (validationResult(req).array().length) {
         return res
