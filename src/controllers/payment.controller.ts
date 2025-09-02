@@ -58,10 +58,11 @@ class PaymentController {
   }
 
   async confirmPaymentByPaymentIntentId(req: UserRequest, res: Response) {
-    if (!req.user || !req.user?._id) {
-      return res
-        .status(HTTP_STATUS.UNAUTHORIZED)
-        .send(failure("User not authenticated"));
+    if (req.user && req.user?._id) {
+      // return res
+      //   .status(HTTP_STATUS.UNAUTHORIZED)
+      //   .send(failure("User not authenticated"));
+      req.body.userId = req.user._id;
     }
     if (validationResult(req).array().length) {
       return res
@@ -70,7 +71,10 @@ class PaymentController {
           failure("Validation failed", validationResult(req).array()[0].msg)
         );
     }
-    req.body.userId = req.user._id;
+
+    console.log("req.user", req.user);
+    // console.log("req.user?._id", req.user?._id);
+
     try {
       const booking = await bookingService.getBookingById(req.body.bookingId);
 
@@ -79,6 +83,19 @@ class PaymentController {
           .status(HTTP_STATUS.NOT_FOUND)
           .send(failure("Booking not found"));
       }
+
+      if (!booking.event) {
+        return res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .send(failure("booking does not have an event"));
+      }
+
+      if (!req.user && booking.guestUser) {
+        req.body.userId = booking.guestUser;
+      }
+
+      console.log("booking.guestUser", booking.guestUser);
+      console.log("req.body", req.body);
 
       const event = await getEventServiceById(booking.event._id.toString());
       if (!event) {
@@ -97,10 +114,17 @@ class PaymentController {
       await booking.save();
       await event.save();
       const payment = await transactionService.createTransaction(req.body);
-      res.status(HTTP_STATUS.OK).send(success("Payment confirmed", payment));
+      if (!payment) {
+        return res
+          .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+          .send(failure("Failed to confirm payment"));
+      }
+      return res
+        .status(HTTP_STATUS.OK)
+        .send(success("Payment confirmed", payment));
     } catch (error) {
       console.error(error);
-      res
+      return res
         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
         .send({ error: "Failed to confirm payment" });
     }

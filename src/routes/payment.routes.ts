@@ -6,6 +6,7 @@ import {
   isAuthorizedUser,
   isAuthorizedAdmin,
   isAuthorizedSuperAdmin,
+  userExists,
 } from "../middlewares/authValidationJWT";
 
 import { mongoDBIdValidator } from "../middlewares/validation";
@@ -27,7 +28,7 @@ routes.post(
   "/intents/transactions",
   upload.none(),
   transactionValidator.create,
-  isAuthorizedUser,
+  userExists,
   PaymentController.confirmPaymentByPaymentIntentId
 );
 
