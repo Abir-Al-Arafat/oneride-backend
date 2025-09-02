@@ -195,24 +195,21 @@ const userExists = (req: Request, res: Response, next: NextFunction) => {
     //     .send(failure("Unauthorized access, user not logged in"));
     // }
     // console.log("tokenCookie", tokenCookie);
-    if (!authorization) {
-      return res
-        .status(HTTP_STATUS.UNAUTHORIZED)
-        .send(failure("Unauthorized access"));
-    }
-    console.log(authorization);
-    const tokenHeader = authorization.split(" ")[1];
-    console.log("tokenHeader", tokenHeader);
-    const validate = jsonWebToken.verify(
-      tokenHeader,
-      process.env.JWT_SECRET ?? "default_secret"
-    ) as JwtPayload;
-    // const validate = jsonWebToken.verify(
-    //   tokenCookie,
-    //   process.env.JWT_SECRET ?? "default_secret"
-    // ) as JwtPayload;
+    if (authorization) {
+      console.log(authorization);
+      const tokenHeader = authorization.split(" ")[1];
+      console.log("tokenHeader", tokenHeader);
+      const validate = jsonWebToken.verify(
+        tokenHeader,
+        process.env.JWT_SECRET ?? "default_secret"
+      ) as JwtPayload;
+      // const validate = jsonWebToken.verify(
+      //   tokenCookie,
+      //   process.env.JWT_SECRET ?? "default_secret"
+      // ) as JwtPayload;
 
-    (req as UserRequest).user = validate as IUser;
+      (req as UserRequest).user = validate as IUser;
+    }
 
     next();
   } catch (error) {
