@@ -1,0 +1,3029 @@
+{
+	"info": {
+		"_postman_id": "f2fed177-64df-4957-b729-8a419d59ee5f",
+		"name": "one ride",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46809910",
+		"_collection_link": "https://oneride-busticket.postman.co/workspace/Team-Workspace~5b143a6a-69e2-4604-8290-67f7af88cb04/collection/46809910-f2fed177-64df-4957-b729-8a419d59ee5f?action=share&source=collection_link&creator=46809910"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "abirwerks@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abirwerks@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "passwordConfirm",
+									"value": "abirwerks@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "abirwerks@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/signup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "kikoj79757@forcrack.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "kikoj79757@forcrack.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/send-otp",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"send-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "kikoj79757@forcrack.com",
+									"type": "text"
+								},
+								{
+									"key": "emailVerifyCode",
+									"value": "5806",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/verify-email",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/reset-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "lanoha4245@cyluna.com",
+									"type": "text"
+								},
+								{
+									"key": "confirmNewPassword",
+									"value": "lanoha4245@cyluna.com",
+									"type": "text"
+								},
+								{
+									"key": "oldPassword",
+									"value": "lanoha4245@cyluna.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/change-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "add category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "music",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/categories",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit category",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "music updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/categories/687b461ed4c416c130d06566",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"categories",
+								"687b461ed4c416c130d06566"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/categories/687b461ed4c416c130d06566",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"categories",
+								"687b461ed4c416c130d06566"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/categories",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "blog",
+			"item": [
+				{
+					"name": "add blog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "author",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "draft",
+									"description": "[draft, published]",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "content",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-15 155433.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit blog",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title updated",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "author updated",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "published",
+									"description": "[draft, published]",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "content updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-15 155433.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs/68a97ab5f5ae3a0c7714e96b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs",
+								"68a97ab5f5ae3a0c7714e96b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete blog",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs/68a97ab5f5ae3a0c7714e96b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs",
+								"68a97ab5f5ae3a0c7714e96b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all blogs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "music",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "blog by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/blogs/688d918d789d4de953d31e9c",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"blogs",
+								"688d918d789d4de953d31e9c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ally",
+			"item": [
+				{
+					"name": "add ally",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "location",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "venue",
+									"description": "['pub', 'restaurant', 'venue']",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"description": "['active', 'inactive']",
+									"type": "text"
+								},
+								{
+									"key": "websiteURL",
+									"value": "www.bdcalling.com",
+									"type": "text"
+								},
+								{
+									"key": "marketingBlurb",
+									"value": "marketingBlurb",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/allies",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"allies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit ally",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "title updated",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "location updated",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "inactive",
+									"description": "['active', 'inactive']",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "restaurant",
+									"description": "['pub', 'restaurant', 'venue']",
+									"type": "text"
+								},
+								{
+									"key": "websiteURL",
+									"value": "www.hithere.com",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-13 111853.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/allies/68a948491ef9026b80f97f69",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"allies",
+								"68a948491ef9026b80f97f69"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete ally",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/allies/68a948491ef9026b80f97f69",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"allies",
+								"68a948491ef9026b80f97f69"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all allies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/allies",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"allies"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "inactive",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "pub",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "partnership",
+			"item": [
+				{
+					"name": "create partnership",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "organizerName",
+									"value": "organizerName",
+									"type": "text"
+								},
+								{
+									"key": "eventName",
+									"value": "another",
+									"type": "text"
+								},
+								{
+									"key": "organizerEmail",
+									"value": "email@email.com",
+									"type": "text"
+								},
+								{
+									"key": "eventDate",
+									"value": "2025-08-13T11:45:30.123Z",
+									"type": "text"
+								},
+								{
+									"key": "eventLocation",
+									"value": "eventLocation",
+									"type": "text"
+								},
+								{
+									"key": "transportationNeeds",
+									"value": "transportationNeeds",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/partnerships",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"partnerships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggle partnership",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "approved",
+									"description": "pending | approved | rejected",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/partnerships/toggle/689db26728e4549a98d8ddda",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"partnerships",
+								"toggle",
+								"689db26728e4549a98d8ddda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update partnership",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "adminNotes",
+									"value": "adminNotes",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/partnerships/689db26728e4549a98d8ddda",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"partnerships",
+								"689db26728e4549a98d8ddda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "partnership by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/partnerships/689db54222a4fc631aae2464",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"partnerships",
+								"689db54222a4fc631aae2464"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all partnerships",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/partnerships?status=pending&includeStats=true",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"partnerships"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "pending | approved | rejected"
+								},
+								{
+									"key": "includeStats",
+									"value": "true"
+								},
+								{
+									"key": "search",
+									"value": "eventName",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "dateFilter",
+									"value": "thisMonth",
+									"description": "today | thisWeek | thisMonth",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "about us",
+			"item": [
+				{
+					"name": "add about",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "headerText",
+									"value": "headerText updated",
+									"type": "text"
+								},
+								{
+									"key": "subText",
+									"value": "subText updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-05 165235.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/about-us",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"about-us"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "about us",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/about-us",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"about-us"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "team member",
+			"item": [
+				{
+					"name": "add team member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "headerText updated",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "subText updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-05 165235.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/team-members",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"team-members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit team member",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "headerText updated",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "subText updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-31 124155.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/team-members/688ef4421806029826b5f5c1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"team-members",
+								"688ef4421806029826b5f5c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete team member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "headerText updated",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "subText updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-31 124155.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/team-members/688ef4421806029826b5f5c1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"team-members",
+								"688ef4421806029826b5f5c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all team members",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "music",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/team-members",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"team-members"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "inactive",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "pub",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transport",
+			"item": [
+				{
+					"name": "create transport",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "parkAndRide",
+									"description": "[busRoute, parkAndRide, pubPickup]",
+									"type": "text"
+								},
+								{
+									"key": "pickUpPoint",
+									"value": "abc",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "35",
+									"type": "text"
+								},
+								{
+									"key": "departureTime",
+									"value": "2023-09-10T15:30:00Z",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/transports",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete transports",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/transports/68820d6ed79d97a231c81f8b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transports",
+								"68820d6ed79d97a231c81f8b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all transports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/transports",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transports"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "pubPickup",
+									"description": "[\"busRoute\", \"parkAndRide\", \"pubPickup\"]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "create event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "68871dd3c31e94e2395ca697",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-07-24T07:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-07-24T07:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "2025-07-24T14:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "2025-07-24T14:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "venueName",
+									"value": "venueName",
+									"type": "text"
+								},
+								{
+									"key": "busRoutes",
+									"value": "[\"68820d54d79d97a231c81f88\"]",
+									"type": "text"
+								},
+								{
+									"key": "parkAndRides",
+									"value": "[\"68820d6ed79d97a231c81f8b\"]",
+									"type": "text"
+								},
+								{
+									"key": "pubPickups",
+									"value": "[\"6881f9ef4b6d5c4172de708d\"]",
+									"type": "text"
+								},
+								{
+									"key": "totalSeat",
+									"value": "35",
+									"type": "text"
+								},
+								{
+									"key": "ticketPrice",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "adminStatus",
+									"value": "",
+									"description": "[\"active\", \"draft\", \"ended\"]",
+									"type": "text"
+								},
+								{
+									"key": "websiteStatus",
+									"value": "",
+									"description": "[\"upcoming\", \"featured\"]",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-15 155433.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/events",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/68871c74223ac922e1ef16a6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"68871c74223ac922e1ef16a6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all events",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events?transportType=pubPickup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "concert",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "tit",
+									"disabled": true
+								},
+								{
+									"key": "adminStatus",
+									"value": "active",
+									"disabled": true
+								},
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "transportType",
+									"value": "pubPickup",
+									"description": "busRoute | parkAndRide | pubPickup"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/6884afec8dcfb3403f179161",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"6884afec8dcfb3403f179161"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "charter",
+			"item": [
+				{
+					"name": "create charter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rosas18892@devdigs.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "019999999",
+									"type": "text"
+								},
+								{
+									"key": "passengerCount",
+									"value": "22",
+									"type": "text"
+								},
+								{
+									"key": "pickupLocation",
+									"value": "diyabari",
+									"type": "text"
+								},
+								{
+									"key": "dropoffLocation",
+									"value": "clifornia",
+									"type": "text"
+								},
+								{
+									"key": "pickupDateAndTime",
+									"value": "2025-07-24T14:30:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "purpose",
+									"value": "birthday party",
+									"type": "text"
+								},
+								{
+									"key": "specialInstructions",
+									"value": "specialInstructions",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update charter status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "rejected",
+									"description": "[\"pending\", \"approved\", \"rejected\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/status/6889bdfccf99ce16b4eb9d36",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"status",
+								"6889bdfccf99ce16b4eb9d36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mail client about charter status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/status/mail-user/6889de1bd426bbd896dfb926",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"status",
+								"mail-user",
+								"6889de1bd426bbd896dfb926"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete charter",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fahaje3157@lhory.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters/6889de1ad426bbd896dfb924",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters",
+								"6889de1ad426bbd896dfb924"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all charters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/charters?page=2&limit=1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"charters"
+							],
+							"query": [
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"description": "thisWeek | thisMonth | thisYear",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invitation",
+			"item": [
+				{
+					"name": "create invitation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "fullName",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rosas18892@devdigs.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "viewer",
+									"type": "text"
+								},
+								{
+									"key": "optionalMessage",
+									"value": "optionalMessage",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/invitations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all invitations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/invitations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"invitations"
+							],
+							"query": [
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "create booking (auth user)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "event",
+									"value": "6884afec8dcfb3403f179161",
+									"type": "text"
+								},
+								{
+									"key": "transport",
+									"value": "6881f9ef4b6d5c4172de708d",
+									"type": "text"
+								},
+								{
+									"key": "ticketCount",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings/auth-user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings",
+								"auth-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking of user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings/auth-user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings",
+								"auth-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create booking (guest user)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstName",
+									"value": "firstName",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "lastName",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0199999",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "email@email.com",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"description": "male | female | other",
+									"type": "text"
+								},
+								{
+									"key": "event",
+									"value": "6884afec8dcfb3403f179161",
+									"type": "text"
+								},
+								{
+									"key": "transport",
+									"value": "6881f9ef4b6d5c4172de708d",
+									"type": "text"
+								},
+								{
+									"key": "ticketCount",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings/guest-user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings",
+								"guest-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all bookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "filterByQuarter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings/689343d04aa838ef415901bf",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings",
+								"689343d04aa838ef415901bf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/bookings/68933253a4a33db36f8f6c21",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"bookings",
+								"68933253a4a33db36f8f6c21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "create intent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "bookingId",
+									"value": "68a6fa3d80b0d3c0c675db52",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/intents",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"intents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm payment by intent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bookingId",
+									"value": "68a6fa3d80b0d3c0c675db52",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "paymentIntentId",
+									"value": "pi_3RyW6MIE7z8j8FQD1o43Ogfv",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "success",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/intents/transactions",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"intents",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "bookingId",
+									"value": "689343d04aa838ef415901bf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/intents/pi_3RvcKZIE7z8j8FQD0FtK1xMu",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"intents",
+								"pi_3RvcKZIE7z8j8FQD0FtK1xMu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get payment by booking id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "bookingId",
+									"value": "689343d04aa838ef415901bf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/intents/bookings/689343d04aa838ef415901bf",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"intents",
+								"bookings",
+								"689343d04aa838ef415901bf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all payments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODdhMjE0MDQxZmRlZDFiN2M2YmIyOTUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NDQ3NDEwNSwiZXhwIjoxODQwODc0MTA1fQ.izl3ZwyKIG87AsKaogyv9cndw9-F5NfdQ65gutk6EjU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "bookingId",
+									"value": "689343d04aa838ef415901bf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/intents",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"intents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "doctor@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "doctor",
+									"type": "text"
+								},
+								{
+									"key": "nhsNumber",
+									"value": "211",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "doctor",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users & guests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "doctor@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "doctor",
+									"type": "text"
+								},
+								{
+									"key": "nhsNumber",
+									"value": "211",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "doctor",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users-guests?role=guest",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users-guests"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "upda",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "guest",
+									"description": "admin | user | guest"
+								},
+								{
+									"key": "dateFilter",
+									"value": "thisMonth",
+									"description": "today | thisWeek | thisMonth",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one user by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "doctor@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "doctor",
+									"type": "text"
+								},
+								{
+									"key": "nhsNumber",
+									"value": "211",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "doctor",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/6836b2852bb410c7d06c1fbb",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"6836b2852bb410c7d06c1fbb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get own profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODc3OGY2YzExZWJlN2ZiZjNmZTBhMjUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NTU3Nzk1MSwiZXhwIjoxODQxOTc3OTUxfQ.cvzfa1cU_WfzT2zTdffS3x3gzHyHrYNkkXPMl2R71uY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/auth/profile",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODc3OGY2YzExZWJlN2ZiZjNmZTBhMjUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1NTU4NTk5MSwiZXhwIjoxODQxOTg1OTkxfQ.oH6bCCqQJ08ugB0OAWLFW38uTCExmViFd09Hdiods3E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "updated",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/antor/OneDrive/Pictures/Screenshots/Screenshot 2025-07-15 151529.png"
+								},
+								{
+									"key": "phone",
+									"value": "018888888",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "female",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/auth/update-profile-by-user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"auth",
+								"update-profile-by-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggle ban",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGExYmMxNjAzZWFlYTVmYzlhYWU2NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NTU3NjA0ODMsImV4cCI6MTg0MjE2MDQ4M30.bSN5vkDDP5QjVfjtVljdEcp7W7DYWhH5FfSfObVY0i4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "68778f6c11ebe7fbf3fe0a25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/auth/toggle-ban",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"auth",
+								"toggle-ban"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chats",
+			"item": [
+				{
+					"name": "create/access chat (1 on 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODRlOGRjNjIyMDk1MThhNWJkZjlmYjUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1MDIzNzE3NCwiZXhwIjoxODM2NjM3MTc0fQ.RDUmX07iFIY7w6xFb_5g88jFpXSjWGMBSOeOJLU_5Io",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "6836b2852bb410c7d06c1fbb",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/chats/access",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chats",
+								"access"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch all chats of a logged in user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "question",
+									"value": "why should i use this",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "because this is amazing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/chats/fetch",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chats",
+								"fetch"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "messages",
+			"item": [
+				{
+					"name": "send message (1 on 1)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODM2YjI4NTJiYjQxMGM3ZDA2YzFmYmIiLCJyb2xlcyI6WyJ1c2VyIiwiZHJpdmVyIl0sImlhdCI6MTc1MDgzMzg0MSwiZXhwIjoxODM3MjMzODQxfQ.b3RSDqglwTV1IeORTzoxIdi1Ofkoq4YFlVvaSPOu5PQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "chatId",
+									"value": "685a370265d0265dcc18ba0a",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Hey i reached at your place",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/messages/send",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"messages",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch all messages for a chat",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODRlOGRjNjIyMDk1MThhNWJkZjlmYjUiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTc1MDIzNzE3NCwiZXhwIjoxODM2NjM3MTc0fQ.RDUmX07iFIY7w6xFb_5g88jFpXSjWGMBSOeOJLU_5Io",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/messages/get-all-messages/685a370265d0265dcc18ba0a",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"messages",
+								"get-all-messages",
+								"685a370265d0265dcc18ba0a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "terms & conditions",
+			"item": [
+				{
+					"name": "all terms & conditions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "doctorId",
+									"value": "670127ed7ad3ed2c53e489b1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/terms",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"terms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add terms & conditions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "content updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/terms",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"terms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "faqs",
+			"item": [
+				{
+					"name": "add faq",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "question",
+									"value": "why should i use this",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "because this is amazing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/faqs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"faqs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all faqs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "question",
+									"value": "why should i use this",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "because this is amazing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/faqs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"faqs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "faq by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/faqs/68a9b4b9cba383382c8b978b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"faqs",
+								"68a9b4b9cba383382c8b978b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update faq",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "question",
+									"value": "why should i use this updated",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "because this is amazing updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/faqs/68a9b4b9cba383382c8b978b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"faqs",
+								"68a9b4b9cba383382c8b978b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete an faq",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "question",
+									"value": "why should i use this",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "because this is amazing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/faqs/68a9b02796c330df02502c3b",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"faqs",
+								"68a9b02796c330df02502c3b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dashboard",
+			"item": [
+				{
+					"name": "overview",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/dashboard/overview",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"dashboard",
+								"overview"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://10.10.10.70:5000/api"
+		},
+		{
+			"key": "adminToken",
+			"value": ""
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "userToken",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
