@@ -142,7 +142,9 @@ class BookingController {
 
   async getAllBookings(req: Request, res: Response) {
     try {
-      const allBookings = await bookingService.getAllBookings();
+      const query = req.query;
+      console.log("query", query);
+      const allBookings = await bookingService.getAllBookings(query);
       return res
         .status(HTTP_STATUS.OK)
         .send(success("All bookings", allBookings));
